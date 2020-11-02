@@ -7,15 +7,24 @@
 
 import Foundation
 
-struct Task: Equatable {
+struct Task: Equatable, Codable {
     let id: UUID
     let title: String
     let description: String
     let isCompleted: Bool
+    let createdAt: Date
+    
+    var isActive: Bool {
+        !isCompleted
+    }
+    
+    var isEmpty: Bool {
+        title.isEmpty || description.isEmpty
+    }
 }
 
 extension Task {
     init(title: String, description: String) {
-        self.init(id: UUID(), title: title, description: description, isCompleted: false)
+        self.init(id: UUID(), title: title, description: description, isCompleted: false, createdAt: Date())
     }
 }
