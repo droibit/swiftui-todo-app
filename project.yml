@@ -9,6 +9,14 @@ settings:
   base:
     SWIFT_VERSION: 5.0
 
+packages:    
+  GRDB:
+    url: https://github.com/groue/GRDB.swift.git
+    exactVersion: 5.1.0
+  RxGRDB:
+    url: https://github.com/RxSwiftCommunity/RxGRDB.git
+    exactVersion: 1.0.0
+
 targets:
   TodoApp:
     type: application
@@ -28,9 +36,10 @@ targets:
         createIntermediateGroups: true
     dependencies:
       - carthage: NeedleFoundation
-      - carthage: SQLite
       - carthage: RxSwift
       - carthage: RxRelay
+      - package: GRDB
+      - package: RxGRDB
     preBuildScripts:      
       - name: Run needle
         path: /bin/sh
