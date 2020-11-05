@@ -16,6 +16,12 @@ packages:
   RxGRDB:
     url: https://github.com/RxSwiftCommunity/RxGRDB.git
     exactVersion: 1.0.0
+  RxSwift:
+    url: https://github.com/ReactiveX/RxSwift.git
+    exactVersion: 5.1.1
+  RxRelay:
+    url: https://github.com/ReactiveX/RxSwift.git
+    exactVersion: 5.1.1
 
 targets:
   TodoApp:
@@ -36,8 +42,8 @@ targets:
         createIntermediateGroups: true
     dependencies:
       - carthage: NeedleFoundation
-      - carthage: RxSwift
-      - carthage: RxRelay
+      - package: RxSwift
+      - package: RxRelay
       - package: GRDB
       - package: RxGRDB
     preBuildScripts:      
