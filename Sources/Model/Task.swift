@@ -8,7 +8,7 @@
 import Foundation
 
 struct Task: Equatable, Codable {
-    let id: UUID
+    let id: String
     let title: String
     let description: String
     let isCompleted: Bool
@@ -25,6 +25,6 @@ struct Task: Equatable, Codable {
 
 extension Task {
     init(title: String, description: String) {
-        self.init(id: UUID(), title: title, description: description, isCompleted: false, createdAt: Date())
+        self.init(id: UUID().uuidString, title: title, description: description, isCompleted: false, createdAt: Date())
     }
 }

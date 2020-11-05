@@ -8,6 +8,8 @@
 import GRDB
 import Foundation
 import NeedleFoundation
+import RxSwift
+import RxRelay
 
 class AppComponent: BootstrapComponent {
     static var instance: AppComponent = .init()
@@ -16,11 +18,24 @@ class AppComponent: BootstrapComponent {
 // MARK: - Repository
 
 extension AppComponent {
+    var schedulers: SchedulerProvider {
+        shared {
+            SchedulerProvider(
+                main: MainScheduler.instance,
+                background: ConcurrentDispatchQueueScheduler(qos: .userInitiated),
+                current: CurrentThreadScheduler.instance
+            )
+        }
+    }
+    
     var localtasksDataSource: TasksDataSource {
         shared {
-            let dbPath = getDocumentsDirectory().appendingPathComponent("Tasks.db")
+//            let dbPath = getDocumentsDirectory().appendingPathComponent("Tasks.db")
             return LocalTasksDataSource(
-                databaseQueue: try! DatabaseQueue(path: dbPath.absoluteString)
+//                databaseQueue: try! DatabaseQueue(path: dbPath.absoluteString),
+                databaseQueue: DatabaseQueue(),
+                schedulers: schedulers,
+                reloadEventSink: PublishRelay()
             )
         }
     }

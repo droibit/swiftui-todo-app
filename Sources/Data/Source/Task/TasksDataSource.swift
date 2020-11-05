@@ -10,13 +10,13 @@ import RxSwift
 
 protocol TasksDataSource {
     
-    var tasks: Observable<Task> { get }
+    var tasks: Observable<[Task]> { get }
     
     func initialize()
     
     func createTask(title: String, description: String) -> Completable
 
-    func updateTask(taskId: String, title: String, description: String) -> Completable
+    func updateTask(id: String, title: String, description: String) -> Completable
 
     func activateTask(id: String) -> Completable
 

@@ -24,10 +24,10 @@ extension TaskEntity: FetchableRecord, MutablePersistableRecord {
     }
 
     enum Columns {
-        static let id = Column("entry_id")
+        static let id = Column("id")
         static let title = Column("title")
         static let description = Column("description")
-        static let completed = Column("completed")
-        static let createdAt = Column("created_at")
+        static let completed = Column("isCompleted")
+        static let createdAt = Column("createdAt")
     }
 }
