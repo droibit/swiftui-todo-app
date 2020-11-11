@@ -24,7 +24,7 @@ class LocalTasksDataSource: TasksDataSource {
     private lazy var tasksSink: Observable<[Task]> = {
         reloadEventSink.startWith(())
             .flatMap { _ in
-                self.databaseQueue.rx.read(observeOn: self.schedulers.background) { db in
+                self.databaseQueue.rx.read(observeOn: self.schedulers.current) { db in
                     try TaskEntity.fetchAll(db)
                 }.asObservable()
                 .do(onNext: { _ in print("loaded task(s)") })
@@ -57,6 +57,12 @@ class LocalTasksDataSource: TasksDataSource {
             }
         } catch {
             print("Create db error: \(error)")
+        }
+    }
+    
+    func getTask(id: String) -> Single<Task?> {
+        self.databaseQueue.rx.read(observeOn: self.schedulers.current) { db in
+            try TaskEntity.fetchOne(db, key: id)
         }
     }
     

@@ -30,6 +30,7 @@ extension AppComponent {
     
     var localtasksDataSource: TasksDataSource {
         shared {
+            // TODO: Persist in storage
 //            let dbPath = getDocumentsDirectory().appendingPathComponent("Tasks.db")
             return LocalTasksDataSource(
 //                databaseQueue: try! DatabaseQueue(path: dbPath.absoluteString),

@@ -14,6 +14,8 @@ protocol TasksDataSource {
     
     func initialize()
     
+    func getTask(id: String) -> Single<Task?>
+    
     func createTask(title: String, description: String) -> Completable
 
     func updateTask(id: String, title: String, description: String) -> Completable
