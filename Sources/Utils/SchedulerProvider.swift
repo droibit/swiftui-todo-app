@@ -11,13 +11,13 @@ class SchedulerProvider {
     let main: SchedulerType
     let background: SchedulerType
     let current: ImmediateSchedulerType
-    
+
     init(main: SchedulerType,
          background: SchedulerType,
-         current: ImmediateSchedulerType) {
+         current: ImmediateSchedulerType)
+    {
         self.main = main
         self.background = background
         self.current = current
     }
 }
-

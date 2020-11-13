@@ -5,11 +5,11 @@
 //  Created by Shinya Kumagai on 2020/11/01.
 //
 
-import GRDB
 import Foundation
+import GRDB
 import NeedleFoundation
-import RxSwift
 import RxRelay
+import RxSwift
 
 class AppComponent: BootstrapComponent {
     static var instance: AppComponent = .init()
@@ -27,13 +27,13 @@ extension AppComponent {
             )
         }
     }
-    
+
     var localtasksDataSource: TasksDataSource {
         shared {
             // TODO: Persist in storage
 //            let dbPath = getDocumentsDirectory().appendingPathComponent("Tasks.db")
-            return LocalTasksDataSource(
-//                databaseQueue: try! DatabaseQueue(path: dbPath.absoluteString),
+            LocalTasksDataSource(
+                //                databaseQueue: try! DatabaseQueue(path: dbPath.absoluteString),
                 databaseQueue: DatabaseQueue(),
                 schedulers: schedulers,
                 reloadEventSink: PublishRelay()

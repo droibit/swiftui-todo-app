@@ -13,11 +13,11 @@ struct Task: Equatable, Codable {
     let description: String
     let isCompleted: Bool
     let createdAt: Date
-    
+
     var isActive: Bool {
         !isCompleted
     }
-    
+
     var isEmpty: Bool {
         title.isEmpty || description.isEmpty
     }

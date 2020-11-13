@@ -8,13 +8,13 @@
 import Foundation
 import GRDB
 
-//struct TaskEntity: Equatable {
+// struct TaskEntity: Equatable {
 //    let id: String
 //    let title: String
 //    let description: String
 //    let isCompleted: Bool
 //    let createdAtMillis: Int
-//}
+// }
 //
 typealias TaskEntity = Task
 

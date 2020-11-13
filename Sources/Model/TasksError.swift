@@ -9,7 +9,7 @@ import Foundation
 
 struct TasksError: Error, CustomStringConvertible {
     let message: String
-    
+
     var description: String {
         message
     }
