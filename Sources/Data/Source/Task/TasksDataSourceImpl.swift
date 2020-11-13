@@ -26,8 +26,9 @@ class LocalTasksDataSource: TasksDataSource {
             .flatMap { _ in
                 self.databaseQueue.rx.read(observeOn: self.schedulers.current) { db in
                     try TaskEntity.fetchAll(db)
-                }.asObservable()
-                .do(onNext: { _ in print("loaded task(s)") })
+                }
+                .catchError { .error(TasksError(error: $0)) }
+                .asObservable()
             }
             .share(replay: 1, scope: .forever)
     }()
@@ -63,7 +64,7 @@ class LocalTasksDataSource: TasksDataSource {
     func getTask(id: String) -> Single<Task?> {
         self.databaseQueue.rx.read(observeOn: self.schedulers.current) { db in
             try TaskEntity.fetchOne(db, key: id)
-        }
+        }.catchError { .error(TasksError(error: $0)) }
     }
     
     func createTask(title: String, description: String) -> Completable {
@@ -71,6 +72,7 @@ class LocalTasksDataSource: TasksDataSource {
             var entity = TaskEntity(title: title, description: description)
             try entity.insert(db)
         }
+        .catchError { .error(TasksError(error: $0)) }
         .do(onSuccess: { _ in self.reloadEventSink.accept(()) })
         .asCompletable()
     }
@@ -125,6 +127,7 @@ class LocalTasksDataSource: TasksDataSource {
                 try action(db, task!)
             }
         }
+        .catchError { .error(TasksError(error: $0)) }
         .do(onSuccess: { _ in self.reloadEventSink.accept(()) })
         .asCompletable()
     }
@@ -139,5 +142,15 @@ private extension Task {
             isCompleted: completed ?? self.isCompleted,
             createdAt: self.createdAt
         )
+    }
+}
+
+private extension TasksError {
+    init(error: Error) {
+        if let dbError = error as? DatabaseError {
+            self.init(message: dbError.description)
+        } else {
+            self.init(message: "Unknown error: \(error)")
+        }
     }
 }

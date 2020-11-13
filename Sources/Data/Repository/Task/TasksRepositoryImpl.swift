@@ -26,9 +26,13 @@ class TasksRepositoryImpl: TasksRepository {
     }
     
     func getTask(taskId: String) -> Single<Task> {
-        // TODO: map any error.
         localDataSource.getTask(id: taskId)
-            .map { $0! }
+            .map {
+                guard let task = $0 else {
+                    throw TasksError(message: "Task(id=\(taskId)) not found.")
+                }
+                return task
+            }
             .subscribeOn(schedulers.background)
     }
     
