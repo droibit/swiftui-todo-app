@@ -1,0 +1,41 @@
+/* 
+  Localizable.strings
+  TodoApp
+
+  Created by Shinya Kumagai on 2020/11/14.
+  
+*/
+
+"todo_list.title"="TO-DO List";
+"todo_list.no_tasks"="No TO-DOs.";
+"todo_list.clear_completed"="Clear completed";
+"todo_list.header.all"="All TO-DOs";
+"todo_list.header.active"="Active TO-DOs";
+"todo_list.header.completed"="Completed TO-DOs";
+"todo_list.filter.all"="All";
+"todo_list.filter.active"="Active";
+"todo_list.filter.completed"="Completed";
+"todo_list.sort_by.label"="Sort by";
+"todo_list.sort_by.title"="Title";
+"todo_list.sort_by.created_date"="Created Date";
+
+"new_task.title"="New TO-DO";
+"new_task.create.failed"="Failed to create new TO-DO.";
+"new_task.create.successful"="TO-DO created.";
+"edit_task.title"="Edit TO-DO";
+"edit_task.update.failed"="Failed to update TO-DO.";
+"edit_task.update.successful"="TO-DO updated.";
+"edit_task.title_label"="Title";
+"edit_task.description.label"="Description";
+"edit_task.description.hint"="Enter your TO-DO here.";
+"edit_task.validation.empty_title"="Fill TO-DO's title";
+
+"statistics.title"="Statistics";
+"statistics.active_tasks"="Active TO-DOs:";
+"statistics.completed_tasks"="Completed TO-DOs:";
+
+"settings.title"="Settings";
+"settings.app.title"="App";
+"settings.app.source_code.title"="Source code";
+"settings.app.build_version.title"="Build version";
+"settings.app.build_version.subtitle"="Version=%@";
