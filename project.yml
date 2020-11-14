@@ -3,7 +3,7 @@ options:
   xcodeVersion: "12.0"
   deploymentTarget:
     iOS:  "14.0"
-  developmentLanguage: en
+  developmentLanguage: ja
 
 settings:
   base:
@@ -35,9 +35,18 @@ targets:
         CURRENT_PROJECT_VERSION: 1
         ENABLE_PREVIEWS: true
         DEVELOPMENT_ASSET_PATHS: "\"Sources/Resources/Preview Content\""
+        DEVELOPMENT_LANGUAGE: jp
     sources:
       - path: Sources
+        excludes:
+          - "**/.gitignore"
       - path: Sources/DI/NeedleGenerated.swift
+        optional: true
+        createIntermediateGroups: true
+      - path: Sources/DI/NeedleGenerated.swift
+        optional: true
+        createIntermediateGroups: true
+      - path: Sources/Resources/Generated/Strings+Generated.swift
         optional: true
         createIntermediateGroups: true
     dependencies:
@@ -52,6 +61,17 @@ targets:
         outputFiles:
           - $SRCROOT/Sources/DI/NeedleGenerated.swift
         script: export SOURCEKIT_LOGGING=0 && Carthage/Checkouts/needle/Generator/bin/needle generate Sources/DI/NeedleGenerated.swift Sources/
+      - name: Run SwiftGen
+        path: /bin/sh
+        outputFiles:
+          - $SRCROOT/Sources/Resources/Generated/Strings+Generated.swift
+        script: |
+                unset SDKROOT
+                if which mint >/dev/null; then
+                  mint run swiftgen swiftgen
+                else
+                  echo "warning: Mint not installed, download from https://github.com/yonaskolb/Mint"
+                fi
     postCompileScripts:
       - name: Run SwiftLint
         path: /bin/sh
@@ -64,6 +84,7 @@ targets:
       - name: Run SwiftFormat
         path: /bin/sh
         script: |
+                unset SDKROOT
                 if which mint >/dev/null; then
                   mint run nicklockwood/SwiftFormat swiftformat .
                 else
