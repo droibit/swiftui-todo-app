@@ -9,6 +9,6 @@
 
 ```
 mint bootstrap
-./carthage.sh bootstrap --platform ios
+./carthage.sh bootstrap --platform ios --cache-builds
 mint run xcodegen xcodegen generate
 ```
