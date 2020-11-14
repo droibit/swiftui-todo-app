@@ -11,6 +11,8 @@ import RxSwift
 protocol TasksRepository {
     var tasks: Observable<[Task]> { get }
 
+    func initialize()
+
     func getTask(taskId: String) -> Single<Task>
 
     func createTask(title: String, description: String) -> Completable

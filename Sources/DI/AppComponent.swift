@@ -28,7 +28,16 @@ extension AppComponent {
         }
     }
 
-    var localtasksDataSource: TasksDataSource {
+    var tasksRepository: TasksRepository {
+        shared {
+            TasksRepositoryImpl(
+                localDataSource: localTasksDataSource,
+                schedulers: schedulers
+            )
+        }
+    }
+
+    var localTasksDataSource: TasksDataSource {
         shared {
             // TODO: Persist in storage
 //            let dbPath = getDocumentsDirectory().appendingPathComponent("Tasks.db")

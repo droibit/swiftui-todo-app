@@ -25,6 +25,10 @@ class TasksRepositoryImpl: TasksRepository {
             .subscribeOn(schedulers.background)
     }
 
+    func initialize() {
+        localDataSource.initialize()
+    }
+
     func getTask(taskId: String) -> Single<Task> {
         localDataSource.getTask(id: taskId)
             .map {

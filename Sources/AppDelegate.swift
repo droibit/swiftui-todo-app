@@ -12,7 +12,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         registerProviderFactories()
 
         let appComponent = AppComponent.instance
-        appComponent.localtasksDataSource.initialize()
+        appComponent.tasksRepository.initialize()
 
         return true
     }
