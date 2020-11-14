@@ -76,6 +76,7 @@ included:
   - Sources
 excluded:
   - Sources/DI/NeedleGenerated.swift
+  - Sources/Resources/Generated
 
 line_length:
 - 200   # warning

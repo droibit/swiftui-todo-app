@@ -49,6 +49,9 @@ targets:
       - path: Sources/Resources/Generated/Strings+Generated.swift
         optional: true
         createIntermediateGroups: true
+      - path: Sources/Resources/Generated/XCAssets+Generated.swift
+        optional: true
+        createIntermediateGroups: true        
     dependencies:
       - carthage: NeedleFoundation
       - package: RxSwift
@@ -65,6 +68,7 @@ targets:
         path: /bin/sh
         outputFiles:
           - $SRCROOT/Sources/Resources/Generated/Strings+Generated.swift
+          - $SRCROOT/Sources/Resources/Generated/XCAssets+Generated.swift
         script: |
                 unset SDKROOT
                 if which mint >/dev/null; then
@@ -76,6 +80,7 @@ targets:
       - name: Run SwiftLint
         path: /bin/sh
         script: |
+                unset SDKROOT
                 if which mint >/dev/null; then
                   mint run swiftlint swiftlint
                 else
