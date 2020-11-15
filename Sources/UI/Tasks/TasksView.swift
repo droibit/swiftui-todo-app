@@ -1,5 +1,5 @@
 //
-//  TodoListView.swift
+//  TasksView.swift
 //  TodoApp
 //
 //  Created by Shinya Kumagai on 2020/11/15.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TodoListView: View {
+struct TasksView: View {
     var body: some View {
         NavigationView {
             Text(L10n.TodoList.title)
@@ -18,6 +18,6 @@ struct TodoListView: View {
 
 struct TodoListView_Previews: PreviewProvider {
     static var previews: some View {
-        TodoListView()
+        TasksView()
     }
 }

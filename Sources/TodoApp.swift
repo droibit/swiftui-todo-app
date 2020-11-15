@@ -9,7 +9,7 @@ struct TodoApp: App {
     var body: some Scene {
         WindowGroup {
             TabView {
-                TodoListView()
+                TasksView()
                     .tabItem {
                         Image(systemName: "list.bullet")
                         Text(L10n.TodoList.title)
