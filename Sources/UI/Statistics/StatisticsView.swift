@@ -9,11 +9,10 @@ import SwiftUI
 
 struct StatisticsView: View {
     var body: some View {
-        Text(L10n.Statistics.title)
-            .tabItem {
-                Image(systemName: "ellipsis.circle")
-                Text(L10n.Statistics.title)
-            }
+        NavigationView {
+            Text(L10n.Statistics.title)
+                .navigationBarTitle(Text(L10n.Statistics.title), displayMode: .inline)
+        }
     }
 }
 

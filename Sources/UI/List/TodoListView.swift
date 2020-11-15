@@ -9,11 +9,10 @@ import SwiftUI
 
 struct TodoListView: View {
     var body: some View {
-        Text(L10n.TodoList.title)
-            .tabItem {
-                Image(systemName: "list.bullet")
-                Text(L10n.TodoList.title)
-            }
+        NavigationView {
+            Text(L10n.TodoList.title)
+                .navigationBarTitle(Text(L10n.TodoList.title), displayMode: .inline)
+        }
     }
 }
 
