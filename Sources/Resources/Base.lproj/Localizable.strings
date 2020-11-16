@@ -6,18 +6,18 @@
   
 */
 
-"todo_list.title"="TO-DO List";
-"todo_list.no_tasks"="No TO-DOs.";
-"todo_list.clear_completed"="Clear completed";
-"todo_list.header.all"="All TO-DOs";
-"todo_list.header.active"="Active TO-DOs";
-"todo_list.header.completed"="Completed TO-DOs";
-"todo_list.filter.all"="All";
-"todo_list.filter.active"="Active";
-"todo_list.filter.completed"="Completed";
-"todo_list.sort_by.label"="Sort by";
-"todo_list.sort_by.title"="Title";
-"todo_list.sort_by.created_date"="Created Date";
+"tasks.title"="TO-DO List";
+"tasks.no_tasks"="No TO-DOs.";
+"tasks.clear_completed"="Clear completed";
+"tasks.header.all"="All TO-DOs";
+"tasks.header.active"="Active TO-DOs";
+"tasks.header.completed"="Completed TO-DOs";
+"tasks.filter.all"="All";
+"tasks.filter.active"="Active";
+"tasks.filter.completed"="Completed";
+"tasks.sort_by.label"="Sort by";
+"tasks.sort_by.title"="Title";
+"tasks.sort_by.created_date"="Created Date";
 
 "new_task.title"="New TO-DO";
 "new_task.create.failed"="Failed to create new TO-DO.";

@@ -12,7 +12,7 @@ struct TodoApp: App {
                 TasksView()
                     .tabItem {
                         Image(systemName: "list.bullet")
-                        Text(L10n.TodoList.title)
+                        Text(L10n.Tasks.title)
                     }
                     .tag(0)
                 StatisticsView()

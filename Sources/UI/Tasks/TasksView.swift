@@ -10,8 +10,8 @@ import SwiftUI
 struct TasksView: View {
     var body: some View {
         NavigationView {
-            Text(L10n.TodoList.title)
-                .navigationBarTitle(Text(L10n.TodoList.title), displayMode: .inline)
+            Text(L10n.Tasks.title)
+                .navigationBarTitle(Text(L10n.Tasks.title), displayMode: .inline)
         }
     }
 }
