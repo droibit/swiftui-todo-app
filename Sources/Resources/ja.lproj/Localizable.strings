@@ -5,3 +5,37 @@
   Created by Shinya Kumagai on 2020/11/14.
   
 */
+
+"tasks.title"="TO-DO";
+"tasks.no_tasks"="TO-DOなし";
+"tasks.clear_completed"="完了TO-DOをクリア";
+"tasks.header.all"="全てのTO-DO";
+"tasks.header.active"="アクティブなTO-DO";
+"tasks.header.completed"="完了TO-DO";
+"tasks.filter.all"="全て";
+"tasks.filter.active"="アクティブ";
+"tasks.filter.completed"="完了";
+"tasks.sort_by.label"="並び替え";
+"tasks.sort_by.title"="タイトル";
+"tasks.sort_by.created_date"="作成日";
+
+"new_task.title"="新しいTO-DO";
+"new_task.create.failed"="新しいTO-DOの作成に失敗しました。";
+"new_task.create.successful"="TO-DOを作成しました。";
+"edit_task.title"="TO-DOの編集";
+"edit_task.update.failed"="TO-DOの更新に失敗しました。";
+"edit_task.update.successful"="TO-DOを更新しました.";
+"edit_task.title_label"="タイトル";
+"edit_task.description.label"="説明";
+"edit_task.description.hint"="TO-DOの説明を入力してください";
+"edit_task.validation.empty_title"="TO-DOのタイトルを入力してください。";
+
+"statistics.title"="統計";
+"statistics.active_tasks"="アクティブなTO-DO:";
+"statistics.completed_tasks"="完了TO-DO:";
+
+"settings.title"="設定";
+"settings.app.title"="アプリ";
+"settings.app.source_code.title"="ソースコード ";
+"settings.app.build_version.title"="ビルドバージョン";
+"settings.app.build_version.subtitle"="バージョン=%@";
