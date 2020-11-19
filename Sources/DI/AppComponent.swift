@@ -13,6 +13,10 @@ import RxSwift
 
 class AppComponent: BootstrapComponent {
     static var instance: AppComponent = .init()
+
+    func subcomponent<S: Scope>(_ keyPath: KeyPath<AppComponent, S>) -> S {
+        self[keyPath: keyPath]
+    }
 }
 
 // MARK: - Repository

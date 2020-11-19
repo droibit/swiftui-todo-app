@@ -8,6 +8,16 @@
 import SwiftUI
 
 struct TasksView: View {
+    @StateObject private var component: TasksComponent = .make()
+
+    var body: some View {
+        component.makeView()
+    }
+}
+
+struct TasksContentView: View {
+    let viewModel: TasksViewModel
+
     var body: some View {
         NavigationView {
             Text("TODO")
@@ -21,8 +31,8 @@ struct TasksView: View {
     }
 }
 
-struct TasksView_Previews: PreviewProvider {
-    static var previews: some View {
-        TasksView()
-    }
-}
+// struct TasksContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        TasksContentView()
+//    }
+// }
