@@ -14,6 +14,9 @@ struct TasksUiState {
     let sorting: TasksSorting
 
     // TODO: get filtered & sorted tasks
+    var tasks: [Task] {
+        sourceTasks
+    }
 }
 
 enum TasksUiStateResult {
