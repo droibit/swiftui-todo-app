@@ -11,6 +11,14 @@ struct TaskListView: View {
     let uiState: TasksUiState
 
     var body: some View {
+        if uiState.tasks.isEmpty {
+            EmptyTasksView()
+        } else {
+            taskListView()
+        }
+    }
+
+    private func taskListView() -> some View {
         List {
             Section(
                 header: TasksHeader(
@@ -28,19 +36,42 @@ struct TaskListView: View {
     }
 }
 
+private struct EmptyTasksView: View {
+    var body: some View {
+        VStack(spacing: 16) {
+            Image(systemName: "sun.max")
+                .font(Font.system(size: 40).bold())
+                .foregroundColor(Color(Asset.Colors.accentColor.color))
+                
+            Text(L10n.Tasks.noTasks)
+                .font(.headline)
+        }
+    }
+}
+
 struct TaskListView_Previews: PreviewProvider {
     static var previews: some View {
-        TaskListView(
-            uiState: TasksUiState(
-                sourceTasks: [
-                    Task(title: "Task1Task1Task1Task1Task1Task1Task1Task1Task1Task1Task1", description: ""),
-                    Task(title: "Task2", description: "description"),
-                    Task(title: "Task3", description: ""),
-                    Task(title: "Task4", description: ""),
-                ],
-                filter: .completed,
-                sorting: .createdDate(order: .asc)
+        Group {
+            TaskListView(
+                uiState: TasksUiState(
+                    sourceTasks: [
+                        Task(title: "Task1Task1Task1Task1Task1Task1Task1Task1Task1Task1Task1", description: ""),
+                        Task(title: "Task2", description: "description"),
+                        Task(title: "Task3", description: ""),
+                        Task(title: "Task4", description: ""),
+                    ],
+                    filter: .completed,
+                    sorting: .createdDate(order: .asc)
+                )
             )
-        )
+
+            TaskListView(
+                uiState: TasksUiState(
+                    sourceTasks: [],
+                    filter: .completed,
+                    sorting: .createdDate(order: .asc)
+                )
+            )
+        }
     }
 }

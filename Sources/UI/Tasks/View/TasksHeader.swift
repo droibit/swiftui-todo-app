@@ -21,7 +21,7 @@ struct TasksHeader: View {
                     .font(Font.subheadline)
                 Text(filter.label)
                     .font(.title3)
-                    .fontWeight(.bold)
+                    .fontWeight(.semibold)
                     .foregroundColor(.black)
             })
             Spacer()
