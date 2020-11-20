@@ -30,6 +30,6 @@ class TasksComponent: Component<TasksDependency>, ObservableObject {
 
 extension TasksComponent {
     static func make() -> TasksComponent {
-        AppComponent.instance.subcomponent(\.tasks)
+        AppComponent.instance.tasks
     }
 }
