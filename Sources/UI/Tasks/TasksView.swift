@@ -16,17 +16,28 @@ struct TasksView: View {
 }
 
 struct TasksContentView: View {
-    let viewModel: TasksViewModel
+    @ObservedObject
+    var viewModel: TasksViewModel
 
     var body: some View {
         NavigationView {
-            Text("TODO")
-                .navigationBarTitle(Text(L10n.Tasks.title), displayMode: .inline)
-                .navigationBarItems(leading: Button(action: {}, label: {
-                    Image(systemName: "gear")
-                }), trailing: Button(action: {}, label: {
-                    Image(systemName: "plus")
-                }))
+            Group {
+                switch viewModel.uiStateResult {
+                case .inProgress:
+                    InProgressView()
+                case let .success(uiState):
+                    TaskListView(uiState: uiState)
+                case let .error(message):
+                    TasksErrorView(message: message)
+                }
+            }
+            .navigationBarTitle(Text(L10n.Tasks.title), displayMode: .inline)
+            .navigationBarItems(leading: Button(action: {}, label: {
+                Image(systemName: "gear")
+            }), trailing: Button(action: {}, label: {
+                Image(systemName: "plus")
+            }))
+            .onAppear(perform: viewModel.onAppear)
         }
     }
 }
