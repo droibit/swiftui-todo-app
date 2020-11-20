@@ -1,11 +1,13 @@
 //
-//  TaskListView.swift
+//  TasksUiStateView.swift
 //  TodoApp
 //
 //  Created by Shinya Kumagai on 2020/11/19.
 //
 
 import SwiftUI
+
+// MARK: - TaskListView
 
 struct TaskListView: View {
     let uiState: TasksUiState
@@ -49,6 +51,25 @@ private struct EmptyTasksView: View {
     }
 }
 
+// MARK: - TasksErrorView
+
+private struct TasksErrorView: View {
+    let message: String
+    // TODO: Retry to get tasks.
+    var body: some View {
+        VStack(spacing: 16) {
+            Image(systemName: "exclamationmark.circle")
+                .font(Font.system(size: 40).bold())
+
+            Text(message)
+                .font(Font.headline.weight(.regular))
+                .padding(.horizontal)
+        }
+    }
+}
+
+// MARK: - Preview
+
 struct TaskListView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
@@ -72,6 +93,8 @@ struct TaskListView_Previews: PreviewProvider {
                     sorting: .createdDate(order: .asc)
                 )
             )
+
+            TasksErrorView(message: "Failed to get tasks.")
         }
     }
 }
