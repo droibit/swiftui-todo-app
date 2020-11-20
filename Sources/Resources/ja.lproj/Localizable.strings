@@ -39,3 +39,5 @@
 "settings.app.source_code.title"="ソースコード ";
 "settings.app.build_version.title"="ビルドバージョン";
 "settings.app.build_version.subtitle"="バージョン=%@";
+
+"common.loading" = "読み込み中...";

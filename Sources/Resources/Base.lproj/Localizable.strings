@@ -39,3 +39,5 @@
 "settings.app.source_code.title"="Source code";
 "settings.app.build_version.title"="Build version";
 "settings.app.build_version.subtitle"="Version=%@";
+
+"common.loading" = "Loading...";

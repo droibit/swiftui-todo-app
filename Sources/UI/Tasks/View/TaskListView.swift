@@ -42,9 +42,9 @@ private struct EmptyTasksView: View {
             Image(systemName: "sun.max")
                 .font(Font.system(size: 40).bold())
                 .foregroundColor(Color(Asset.Colors.accentColor.color))
-                
+
             Text(L10n.Tasks.noTasks)
-                .font(.headline)
+                .font(Font.headline.weight(.regular))
         }
     }
 }
