@@ -12,7 +12,7 @@ struct InProgressView: View {
         ProgressView(L10n.Common.loading)
             .progressViewStyle(CircularProgressViewStyle(tint: .gray))
             .foregroundColor(.black)
-            .font(Font.headline.weight(.regular))
+            .font(Font.subheadline.weight(.regular))
             .padding()
     }
 }

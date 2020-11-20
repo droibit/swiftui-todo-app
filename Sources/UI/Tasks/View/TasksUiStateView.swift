@@ -40,29 +40,29 @@ struct TaskListView: View {
 
 private struct EmptyTasksView: View {
     var body: some View {
-        VStack(spacing: 16) {
+        VStack(spacing: 8) {
             Image(systemName: "sun.max")
-                .font(Font.system(size: 40).bold())
+                .font(Font.system(size: 40))
                 .foregroundColor(Color(Asset.Colors.accentColor.color))
 
             Text(L10n.Tasks.noTasks)
-                .font(Font.headline.weight(.regular))
+                .font(Font.subheadline.weight(.regular))
         }
     }
 }
 
 // MARK: - TasksErrorView
 
-private struct TasksErrorView: View {
+struct TasksErrorView: View {
     let message: String
     // TODO: Retry to get tasks.
     var body: some View {
         VStack(spacing: 16) {
             Image(systemName: "exclamationmark.circle")
-                .font(Font.system(size: 40).bold())
+                .font(Font.system(size: 40))
 
             Text(message)
-                .font(Font.headline.weight(.regular))
+                .font(Font.subheadline.weight(.regular))
                 .padding(.horizontal)
         }
     }

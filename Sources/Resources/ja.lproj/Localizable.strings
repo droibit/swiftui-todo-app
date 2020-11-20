@@ -7,8 +7,8 @@
 */
 
 "tasks.title"="TO-DO";
-"tasks.no_tasks"="TO-DOなし";
-"tasks.clear_completed"="完了TO-DOをクリア";
+"tasks.no_tasks"="TO-DOはありません";
+"tasks.clear_completed"="完了したTO-DOをクリア";
 "tasks.header.all"="全てのTO-DO";
 "tasks.header.active"="アクティブなTO-DO";
 "tasks.header.completed"="完了TO-DO";
