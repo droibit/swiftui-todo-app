@@ -16,8 +16,7 @@ struct TasksView: View {
 }
 
 struct TasksContentView: View {
-    @ObservedObject
-    var viewModel: TasksViewModel
+    @ObservedObject var viewModel: TasksViewModel
 
     var body: some View {
         NavigationView {
