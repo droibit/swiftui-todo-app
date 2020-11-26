@@ -1,6 +1,6 @@
 # file options
 
---exclude Carthage,Pods,Sources/DI/NeedleGenerated.swift,Sources/Resources/Generated
+--exclude Carthage,Pods,TodoApp/DI/NeedleGenerated.swift,TodoApp/Resources/Generated
 
 # format options
 --allman false

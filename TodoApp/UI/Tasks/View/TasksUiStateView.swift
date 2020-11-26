@@ -5,6 +5,7 @@
 //  Created by Shinya Kumagai on 2020/11/19.
 //
 
+import Core
 import SwiftUI
 
 // MARK: - TaskListView

@@ -5,6 +5,7 @@
 //  Created by Shinya Kumagai on 2020/11/15.
 //
 
+import Core
 import Foundation
 import SwiftUI
 

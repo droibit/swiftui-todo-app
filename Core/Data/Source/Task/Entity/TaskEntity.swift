@@ -19,7 +19,7 @@ import GRDB
 typealias TaskEntity = Task
 
 extension TaskEntity: FetchableRecord, MutablePersistableRecord {
-    static var databaseTableName: String {
+    public static var databaseTableName: String {
         "tasks"
     }
 

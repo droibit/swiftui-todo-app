@@ -73,10 +73,11 @@ opt_in_rules:
   - yoda_condition
 
 included:
-  - Sources
+  - TodoApp
+  - Core
 excluded:
-  - Sources/DI/NeedleGenerated.swift
-  - Sources/Resources/Generated
+  - TodoApp/DI/NeedleGenerated.swift
+  - TodoApp/Resources/Generated
 
 line_length:
 - 200   # warning

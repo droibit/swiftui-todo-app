@@ -8,6 +8,7 @@ options:
 settings:
   base:
     SWIFT_VERSION: 5.0
+    OTHER_SWIFT_FLAGS: -D DEVELOP -Xfrontend -warn-long-expression-type-checking=200 -Xfrontend -warn-long-function-bodies=200
 
 packages:    
   GRDB:
@@ -34,41 +35,38 @@ targets:
         MARKETING_VERSION: 1.0.0
         CURRENT_PROJECT_VERSION: 1
         ENABLE_PREVIEWS: true
-        DEVELOPMENT_ASSET_PATHS: "\"Sources/Resources/Preview Content\""
+        DEVELOPMENT_ASSET_PATHS: "\"TodoApp/Resources/Preview Content\""
         DEVELOPMENT_LANGUAGE: jp
     sources:
-      - path: Sources
+      - path: TodoApp
         excludes:
           - "**/.gitignore"
-      - path: Sources/DI/NeedleGenerated.swift
+      - path: TodoApp/DI/NeedleGenerated.swift
         optional: true
         createIntermediateGroups: true
-      - path: Sources/DI/NeedleGenerated.swift
+      - path: TodoApp/DI/NeedleGenerated.swift
         optional: true
         createIntermediateGroups: true
-      - path: Sources/Resources/Generated/Strings+Generated.swift
+      - path: TodoApp/Resources/Generated/Strings+Generated.swift
         optional: true
         createIntermediateGroups: true
-      - path: Sources/Resources/Generated/XCAssets+Generated.swift
+      - path: TodoApp/Resources/Generated/XCAssets+Generated.swift
         optional: true
         createIntermediateGroups: true        
     dependencies:
+      - target: Core    
       - carthage: NeedleFoundation
-      - package: RxSwift
-      - package: RxRelay
-      - package: GRDB
-      - package: RxGRDB
     preBuildScripts:      
       - name: Run needle
         path: /bin/sh
         outputFiles:
-          - $SRCROOT/Sources/DI/NeedleGenerated.swift
+          - $SRCROOT/TodoApp/DI/NeedleGenerated.swift
         script:  ./scripts/needle.sh
       - name: Run SwiftGen
         path: /bin/sh
         outputFiles:
-          - $SRCROOT/Sources/Resources/Generated/Strings+Generated.swift
-          - $SRCROOT/Sources/Resources/Generated/XCAssets+Generated.swift
+          - $SRCROOT/TodoApp/Resources/Generated/Strings+Generated.swift
+          - $SRCROOT/TodoApp/Resources/Generated/XCAssets+Generated.swift
         script: ./scripts/swiftgen.sh
     postCompileScripts:
       - name: Run SwiftFormat
@@ -77,6 +75,27 @@ targets:
       - name: Run SwiftLint
         path: /bin/sh
         script: ./scripts/swiftlint.sh
+
+  Core:
+    type: framework
+    platform: iOS    
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: com.github.droibit.sample.${PRODUCT_NAME}
+    sources:
+      - Core
+    dependencies:
+      - carthage: NeedleFoundation
+      - package: RxSwift
+      - package: RxRelay
+      - package: GRDB
+      - package: RxGRDB
+    postCompileScripts:
+      - name: Run SwiftFormat
+        path: /bin/sh
+        script: ./scripts/swiftformat.sh
+      - name: Run SwiftLint
+        path: /bin/sh
+        script: ./scripts/swiftlint.sh      
 
 schemes:
   TodoApp:
@@ -92,4 +111,18 @@ schemes:
     analyze:
       config: Debug
     archive: 
-      config: Debug      
+      config: Release
+  Core:
+    build:
+      targets:
+        Core: all
+    run:
+      config: Debug
+    test:
+      config: Debug
+    profile: 
+      config: Debug
+    analyze:
+      config: Debug
+    archive: 
+      config: Release    

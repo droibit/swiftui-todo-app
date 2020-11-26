@@ -5,6 +5,7 @@
 //  Created by Shinya Kumagai on 2020/11/19.
 //
 
+import Core
 import SwiftUI
 
 struct TaskItemView: View {
@@ -34,7 +35,7 @@ struct TaskItemView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             TaskItemView(
-                task: .init(
+                task: Task(
                     id: "",
                     title: "Test TO-DO",
                     description: "description",
@@ -45,7 +46,7 @@ struct TaskItemView_Previews: PreviewProvider {
             .previewLayout(.sizeThatFits)
 
             TaskItemView(
-                task: .init(
+                task: Task(
                     id: "",
                     title: "Test TO-DO",
                     description: "",

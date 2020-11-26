@@ -1,8 +1,8 @@
 //
-//  AppComponent.swift
-//  TodoApp
+//  CoreComponent.swift
+//  Core
 //
-//  Created by Shinya Kumagai on 2020/11/01.
+//  Created by Shinya Kumagai on 2020/11/26.
 //
 
 import Foundation
@@ -11,13 +11,11 @@ import NeedleFoundation
 import RxRelay
 import RxSwift
 
-class AppComponent: BootstrapComponent {
-    static var instance: AppComponent = .init()
-}
+public class CoreComponent: BootstrapComponent {}
 
-// MARK: - Repository
+// MARK: - Utils
 
-extension AppComponent {
+public extension CoreComponent {
     var schedulers: SchedulerProvider {
         shared {
             SchedulerProvider(
@@ -27,8 +25,12 @@ extension AppComponent {
             )
         }
     }
+}
 
-    var tasksRepository: TasksRepository {
+// MARK: - Repository
+
+extension CoreComponent {
+    public var tasksRepository: TasksRepository {
         shared {
             TasksRepositoryImpl(
                 localDataSource: localTasksDataSource,
@@ -40,7 +42,7 @@ extension AppComponent {
     var localTasksDataSource: TasksDataSource {
         shared {
             // TODO: Persist in storage
-//            let dbPath = getDocumentsDirectory().appendingPathComponent("Tasks.db")
+            //            let dbPath = getDocumentsDirectory().appendingPathComponent("Tasks.db")
             LocalTasksDataSource(
                 //                databaseQueue: try! DatabaseQueue(path: dbPath.absoluteString),
                 databaseQueue: DatabaseQueue(),

@@ -1,6 +1,6 @@
 //
 //  TasksRepository.swift
-//  TodoApp
+//  Core
 //
 //  Created by Shinya Kumagai on 2020/11/11.
 //
@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 
-protocol TasksRepository {
+public protocol TasksRepository {
     var tasks: Observable<[Task]> { get }
 
     func initialize()
