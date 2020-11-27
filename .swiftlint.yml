@@ -5,12 +5,12 @@ disabled_rules:
   - trailing_comma
   - opening_brace
   - file_name
-  - unowned_variable_capture  
+  - unowned_variable_capture
+  - closure_end_indentation  
 opt_in_rules:
   - anyobject_protocol
   - array_init
   - attributes
-  - closure_end_indentation
   - closure_spacing
   - collection_alignment
   - contains_over_filter_count
@@ -72,9 +72,6 @@ opt_in_rules:
   - xct_specific_matcher
   - yoda_condition
 
-included:
-  - TodoApp
-  - Core
 excluded:
   - TodoApp/DI/NeedleGenerated.swift
   - TodoApp/Resources/Generated
