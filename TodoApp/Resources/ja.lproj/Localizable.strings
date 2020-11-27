@@ -12,10 +12,11 @@
 "tasks.header.all"="全てのTO-DO";
 "tasks.header.active"="アクティブなTO-DO";
 "tasks.header.completed"="完了TO-DO";
+"tasks.filter.label"="TO-DOフィルター";
 "tasks.filter.all"="全て";
 "tasks.filter.active"="アクティブ";
 "tasks.filter.completed"="完了";
-"tasks.sort_by.label"="並び替え";
+"tasks.sort_by.label"="TODOの並び替え";
 "tasks.sort_by.title"="タイトル";
 "tasks.sort_by.created_date"="作成日";
 

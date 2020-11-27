@@ -83,3 +83,9 @@ enum TasksSorting {
         }
     }
 }
+
+extension TasksSorting {
+    static func allCases(_ order: Order) -> [TasksSorting] {
+        [.title(order: order), .createdDate(order: order)]
+    }
+}

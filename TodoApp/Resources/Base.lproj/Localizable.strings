@@ -12,6 +12,7 @@
 "tasks.header.all"="All TO-DOs";
 "tasks.header.active"="Active TO-DOs";
 "tasks.header.completed"="Completed TO-DOs";
+"tasks.filter.label"="Filter";
 "tasks.filter.all"="All";
 "tasks.filter.active"="Active";
 "tasks.filter.completed"="Completed";
