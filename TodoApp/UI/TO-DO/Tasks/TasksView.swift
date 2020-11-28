@@ -11,7 +11,7 @@ struct TasksView: View {
     @StateObject private var component: TasksComponent = .make()
 
     var body: some View {
-        component.makeView()
+        component.makeContentView()
     }
 }
 
@@ -19,7 +19,7 @@ struct TasksContentView: View {
     @ObservedObject var viewModel: TasksViewModel
 
     var body: some View {
-        NavigationView {
+        TasksNavigationView {
             Group {
                 switch viewModel.getTasksResult {
                 case .inProgress:
@@ -34,19 +34,41 @@ struct TasksContentView: View {
                     TasksErrorView(message: message)
                 }
             }
-            .navigationBarTitle(Text(L10n.Tasks.title), displayMode: .inline)
-            .navigationBarItems(leading: Button(action: {}, label: {
-                Image(systemName: "gear")
-            }), trailing: Button(action: {}, label: {
-                Image(systemName: "plus")
-            }))
             .onAppear(perform: viewModel.onAppear)
         }
     }
 }
 
-// struct TasksContentView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        TasksContentView()
-//    }
-// }
+private struct TasksNavigationView<Content>: View where Content: View {
+    private let content: Content
+
+    @State private var presentsNewTask: Bool = false
+
+    init(@ViewBuilder content: () -> Content) {
+        self.content = content()
+    }
+
+    var body: some View {
+        NavigationView {
+            content
+                .navigationBarTitle(Text(L10n.NewTask.title), displayMode: .inline)
+                .navigationBarTitle(Text(L10n.Tasks.title), displayMode: .inline)
+                .navigationBarItems(leading: Button(action: {}, label: {
+                    Image(systemName: "gear")
+                }), trailing: Button(action: {
+                    presentsNewTask = true
+                }, label: {
+                    Image(systemName: "plus")
+                }))
+                .sheet(isPresented: $presentsNewTask, content: NewTaskView.init)
+        }
+    }
+}
+
+struct TasksNavigationView_Previews: PreviewProvider {
+    static var previews: some View {
+        TasksNavigationView {
+            Text("Dummy")
+        }
+    }
+}
