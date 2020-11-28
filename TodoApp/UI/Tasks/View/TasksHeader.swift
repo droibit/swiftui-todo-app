@@ -8,14 +8,13 @@
 import SwiftUI
 
 struct TasksHeader: View {
-    let filter: TasksFilter
-    let sorting: TasksSorting
+    @Binding var filter: TasksFilter
+    @Binding var sorting: TasksSorting
 
     @State private var presentsFilterActionSheet = false
-
     @State private var presentsSotingActionSheet = false
 
-    // TODO: review text colors.
+    // TODO: review background color.
     var body: some View {
         HStack {
             Button(action: {
@@ -23,12 +22,12 @@ struct TasksHeader: View {
             }, label: {
                 Image(systemName: "chevron.down")
                     .renderingMode(.template)
-                    .foregroundColor(.black)
+                    .foregroundColor(.primary)
                     .font(Font.subheadline)
                 Text(filter.label)
                     .font(.title3)
                     .fontWeight(.semibold)
-                    .foregroundColor(.black)
+                    .foregroundColor(.primary)
             }).actionSheet(isPresented: $presentsFilterActionSheet) {
                 ActionSheet(title: Text(L10n.Tasks.Filter.label), buttons: filterActionButtons())
             }
@@ -38,24 +37,29 @@ struct TasksHeader: View {
             }, label: {
                 Label(sorting.label, systemImage: "line.horizontal.3.decrease.circle.fill")
                     .font(.subheadline)
-                    .foregroundColor(.black)
+                    .foregroundColor(.primary)
             }).actionSheet(isPresented: $presentsSotingActionSheet) {
                 ActionSheet(title: Text(L10n.Tasks.SortBy.label), buttons: sortingActionButtons())
             }
-            Button(action: {}, label: {
+            Button(action: {
+                sorting.toggleOrder()
+            }, label: {
                 sorting.order.icon
                     .renderingMode(.template)
-                    .foregroundColor(.black)
+                    .foregroundColor(.primary)
                     .font(Font.subheadline.weight(.semibold))
                     .padding(.all, 4)
             })
-        }.padding([.vertical], 12)
+        }
+        .padding(.vertical, 8)
+        .padding(.horizontal, 16)
+        .background(Color.gray)
     }
 
     private func filterActionButtons() -> [ActionSheet.Button] {
         var buttons: [ActionSheet.Button] = TasksFilter.allCases.map { filter in
             .default(Text(filter.label)) {
-                // TODO: callback
+                self.filter = filter
             }
         }
         buttons.append(.cancel())
@@ -65,7 +69,7 @@ struct TasksHeader: View {
     private func sortingActionButtons() -> [ActionSheet.Button] {
         var buttons: [ActionSheet.Button] = TasksSorting.allCases(sorting.order).map { sorting in
             .default(Text(sorting.label)) {
-                // TODO: callback
+                self.sorting = sorting
             }
         }
         buttons.append(.cancel())
@@ -77,15 +81,15 @@ struct TasksHeader_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             TasksHeader(
-                filter: .all,
-                sorting: .title(order: .asc)
+                filter: .constant(.all),
+                sorting: .constant(.title(order: .asc))
             )
             .previewLayout(.sizeThatFits)
             .environment(\.colorScheme, .light)
 
             TasksHeader(
-                filter: .active,
-                sorting: .createdDate(order: .desc)
+                filter: .constant(.active),
+                sorting: .constant(.createdDate(order: .desc))
             )
             .previewLayout(.sizeThatFits)
             .environment(\.colorScheme, .dark)

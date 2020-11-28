@@ -18,21 +18,21 @@ class TasksViewModel: ObservableObject {
 
     private let disposeBag = DisposeBag()
 
-    private var cancellabBag = Set<AnyCancellable>()
+    private var cancellableBag = Set<AnyCancellable>()
 
     @Published var tasksFilter: TasksFilter = .all
 
     @Published var tasksSorting: TasksSorting = .createdDate(order: .asc)
 
-    @Published private(set) var uiStateResult: TasksUiStateResult
+    @Published private(set) var getTasksResult: GetTasksResult
 
     init(tasksRepository: TasksRepository,
          schedulers: SchedulerProvider,
-         uiStateResult: TasksUiStateResult = .inProgress(initial: true))
+         getTasksResult: GetTasksResult = .inProgress(initial: true))
     {
         self.tasksRepository = tasksRepository
         self.schedulers = schedulers
-        self.uiStateResult = uiStateResult
+        self.getTasksResult = getTasksResult
     }
 
     deinit {
@@ -40,37 +40,63 @@ class TasksViewModel: ObservableObject {
     }
 
     func onAppear() {
-        guard case let .inProgress(initial) = uiStateResult, initial else {
+        guard case let .inProgress(initial) = getTasksResult, initial else {
             return
         }
-        uiStateResult = .inProgress(initial: false)
+        getTasksResult = .inProgress(initial: false)
 
-        let tasksFilterSink: Observable<TasksFilter> = {
-            let sink = BehaviorRelay<TasksFilter>(value: tasksFilter)
-            $tasksFilter.sink { sink.accept($0) }
-                .store(in: &cancellabBag)
-            return sink.asObservable()
-        }()
+        let tasksFilterSink = BehaviorRelay<TasksFilter>(value: tasksFilter)
+            .bind(to: $tasksFilter, storeIn: &cancellableBag)
 
-        let tasksSortingSink: Observable<TasksSorting> = {
-            let sink = BehaviorRelay<TasksSorting>(value: tasksSorting)
-            $tasksSorting.sink { sink.accept($0) }
-                .store(in: &cancellabBag)
-            return sink.asObservable()
-        }()
+        let tasksSortingSink = BehaviorRelay(value: tasksSorting)
+            .bind(to: $tasksSorting, storeIn: &cancellableBag)
 
         Observable.combineLatest(
             tasksRepository.tasks,
             tasksFilterSink,
             tasksSortingSink
-        ) { tasks, filter, sorting in
-            TasksUiState(sourceTasks: tasks, filter: filter, sorting: sorting)
+        ) { [unowned self] tasks, filter, sorting in
+            self.convert(sourceTasks: tasks, filter: filter, sorting: sorting)
         }.observeOn(schedulers.main)
-            .subscribe(onNext: { [unowned self] uiState in
-                self.uiStateResult = .success(uiState: uiState)
+            .subscribe(onNext: { [unowned self] tasks in
+                self.getTasksResult = .success(tasks: tasks)
             }, onError: { [unowned self] error in
                 let actualError = error as! TasksError
-                self.uiStateResult = .error(message: actualError.message)
+                self.getTasksResult = .error(message: actualError.message)
             }).disposed(by: disposeBag)
+    }
+
+    private func convert(sourceTasks: [Task], filter: TasksFilter, sorting: TasksSorting) -> [Task] {
+        sourceTasks.filter { task in
+            switch filter {
+            case .all:
+                return true
+            case .active:
+                return task.isActive
+            case .completed:
+                return task.isCompleted
+            }
+        }.sorted(by: { lhs, rhs in
+            switch sorting {
+            case let .title(order):
+                return (order == .asc)
+                    ? lhs.title.lowercased() < rhs.title.lowercased()
+                    : rhs.title.lowercased() < lhs.title.lowercased()
+            case let .createdDate(order):
+                return (order == .asc)
+                    ? lhs.createdAt < rhs.createdAt
+                    : rhs.createdAt < lhs.createdAt
+            }
+        })
+    }
+}
+
+extension BehaviorRelay {
+    func bind(to publisher: Published<Element>.Publisher,
+              storeIn cancellableBag: inout Set<AnyCancellable>) -> BehaviorRelay<Element>
+    {
+        publisher.sink { self.accept($0) }
+            .store(in: &cancellableBag)
+        return self
     }
 }

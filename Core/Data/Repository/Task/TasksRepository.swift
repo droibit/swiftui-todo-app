@@ -11,6 +11,8 @@ import RxSwift
 public protocol TasksRepository {
     var tasks: Observable<[Task]> { get }
 
+    // TODO: var tasks2: Observable<Result<[Task], TasksError>> { get }
+
     func initialize()
 
     func getTask(taskId: String) -> Single<Task>

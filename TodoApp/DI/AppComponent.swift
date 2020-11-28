@@ -25,6 +25,9 @@ func initializeAppComponent() {
 
     let appComponent = CoreComponent().appComponent
     appComponent.tasksRepository.initialize()
+//    _ = appComponent.tasksRepository.createTask(title: "Task1", description: "").subscribe()
+//    _ = appComponent.tasksRepository.createTask(title: "Task2", description: "").subscribe()
+//    _ = appComponent.tasksRepository.createTask(title: "Task3", description: "").subscribe()
 
     AppComponent.instance = appComponent
 }

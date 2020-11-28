@@ -11,31 +11,32 @@ import SwiftUI
 // MARK: - TaskListView
 
 struct TaskListView: View {
-    let uiState: TasksUiState
+    let tasks: [Task]
+    @Binding var tasksFilter: TasksFilter
+    @Binding var tasksSorting: TasksSorting
 
     var body: some View {
-        if uiState.tasks.isEmpty {
-            EmptyTasksView()
-        } else {
-            taskListView()
+        VStack {
+            TasksHeader(
+                filter: $tasksFilter,
+                sorting: $tasksSorting
+            )
+            if tasks.isEmpty {
+                EmptyTasksView()
+            } else {
+                taskListView()
+            }
         }
     }
 
     private func taskListView() -> some View {
         List {
-            Section(
-                header: TasksHeader(
-                    filter: uiState.filter,
-                    sorting: uiState.sorting
-                )
-            ) {
-                ForEach(uiState.tasks) { task in
-                    TaskItemView(task: task)
-                }.onDelete { indexSet in
-                    print("delete at: \(indexSet)")
-                }
+            ForEach(tasks) { task in
+                TaskItemView(task: task)
+            }.onDelete { indexSet in
+                print("delete at: \(indexSet)")
             }
-        }.listStyle(GroupedListStyle())
+        }
     }
 }
 
@@ -48,7 +49,7 @@ private struct EmptyTasksView: View {
 
             Text(L10n.Tasks.noTasks)
                 .font(Font.subheadline.weight(.regular))
-        }
+        }.frame(maxHeight: .infinity)
     }
 }
 
@@ -75,24 +76,20 @@ struct TaskListView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             TaskListView(
-                uiState: TasksUiState(
-                    sourceTasks: [
-                        Task(title: "Task1Task1Task1Task1Task1Task1Task1Task1Task1Task1Task1", description: ""),
-                        Task(title: "Task2", description: "description"),
-                        Task(title: "Task3", description: ""),
-                        Task(title: "Task4", description: ""),
-                    ],
-                    filter: .completed,
-                    sorting: .createdDate(order: .asc)
-                )
+                tasks: [
+                    Task(title: "Task1Task1Task1Task1Task1Task1Task1Task1Task1Task1Task1", description: ""),
+                    Task(title: "Task2", description: "description"),
+                    Task(title: "Task3", description: ""),
+                    Task(title: "Task4", description: ""),
+                ],
+                tasksFilter: .constant(.all),
+                tasksSorting: .constant(.title(order: .asc))
             )
 
             TaskListView(
-                uiState: TasksUiState(
-                    sourceTasks: [],
-                    filter: .completed,
-                    sorting: .createdDate(order: .asc)
-                )
+                tasks: [],
+                tasksFilter: .constant(.completed),
+                tasksSorting: .constant(.createdDate(order: .asc))
             )
 
             TasksErrorView(message: "Failed to get tasks.")

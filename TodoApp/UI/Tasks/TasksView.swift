@@ -21,11 +21,15 @@ struct TasksContentView: View {
     var body: some View {
         NavigationView {
             Group {
-                switch viewModel.uiStateResult {
+                switch viewModel.getTasksResult {
                 case .inProgress:
                     InProgressView()
-                case let .success(uiState):
-                    TaskListView(uiState: uiState)
+                case let .success(tasks):
+                    TaskListView(
+                        tasks: tasks,
+                        tasksFilter: $viewModel.tasksFilter,
+                        tasksSorting: $viewModel.tasksSorting
+                    )
                 case let .error(message):
                     TasksErrorView(message: message)
                 }

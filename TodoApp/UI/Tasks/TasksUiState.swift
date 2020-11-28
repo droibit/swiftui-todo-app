@@ -9,20 +9,9 @@ import Core
 import Foundation
 import SwiftUI
 
-struct TasksUiState {
-    let sourceTasks: [Task]
-    let filter: TasksFilter
-    let sorting: TasksSorting
-
-    // TODO: get filtered & sorted tasks
-    var tasks: [Task] {
-        sourceTasks
-    }
-}
-
-enum TasksUiStateResult {
+enum GetTasksResult {
     case inProgress(initial: Bool)
-    case success(uiState: TasksUiState)
+    case success(tasks: [Task])
     case error(message: String)
 }
 
@@ -53,12 +42,15 @@ enum TasksSorting {
         case desc
 
         var icon: Image {
-            switch self {
-            case .asc:
-                return Image(systemName: "arrow.up")
-            case .desc:
-                return Image(systemName: "arrow.down")
-            }
+            Image(systemName: (self == .asc) ? "arrow.up" : "arrow.down")
+        }
+
+        func toggled() -> Order {
+            (self == .asc) ? .desc : .asc
+        }
+
+        mutating func toggle() {
+            self = (self == .asc) ? .desc : .asc
         }
     }
 
@@ -80,6 +72,15 @@ enum TasksSorting {
             return order
         case let .createdDate(order):
             return order
+        }
+    }
+
+    mutating func toggleOrder() {
+        switch self {
+        case let .title(order):
+            self = .title(order: order.toggled())
+        case let .createdDate(order):
+            self = .createdDate(order: order.toggled())
         }
     }
 }

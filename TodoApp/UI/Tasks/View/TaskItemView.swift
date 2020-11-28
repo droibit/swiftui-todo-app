@@ -11,6 +11,7 @@ import SwiftUI
 struct TaskItemView: View {
     let task: Task
 
+    // TODO: review text color.
     var body: some View {
         HStack {
             task.isCompleted.checkmarkIcon
@@ -44,6 +45,7 @@ struct TaskItemView_Previews: PreviewProvider {
                 )
             )
             .previewLayout(.sizeThatFits)
+            .environment(\.colorScheme, .light)
 
             TaskItemView(
                 task: Task(
@@ -55,6 +57,7 @@ struct TaskItemView_Previews: PreviewProvider {
                 )
             )
             .previewLayout(.sizeThatFits)
+            .environment(\.colorScheme, .dark)
         }
     }
 }
