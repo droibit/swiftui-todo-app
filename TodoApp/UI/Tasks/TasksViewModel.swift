@@ -16,9 +16,7 @@ class TasksViewModel: ObservableObject {
 
     private let schedulers: SchedulerProvider
 
-    private let disposeBag = DisposeBag()
-
-    private var cancellableBag = Set<AnyCancellable>()
+    private var universalBag = UniversalDisposeBag()
 
     @Published var tasksFilter: TasksFilter = .all
 
@@ -45,11 +43,11 @@ class TasksViewModel: ObservableObject {
         }
         getTasksResult = .inProgress(initial: false)
 
-        let tasksFilterSink = BehaviorRelay<TasksFilter>(value: tasksFilter)
-            .bind(to: $tasksFilter, storeIn: &cancellableBag)
+        let tasksFilterSink = BehaviorRelay(value: tasksFilter)
+            .bind(to: $tasksFilter, storeIn: &universalBag.cancellables)
 
         let tasksSortingSink = BehaviorRelay(value: tasksSorting)
-            .bind(to: $tasksSorting, storeIn: &cancellableBag)
+            .bind(to: $tasksSorting, storeIn: &universalBag.cancellables)
 
         Observable.combineLatest(
             tasksRepository.tasks,
@@ -63,7 +61,7 @@ class TasksViewModel: ObservableObject {
             }, onError: { [unowned self] error in
                 let actualError = error as! TasksError
                 self.getTasksResult = .error(message: actualError.message)
-            }).disposed(by: disposeBag)
+            }).disposed(by: universalBag.dispose)
     }
 
     private func convert(sourceTasks: [Task], filter: TasksFilter, sorting: TasksSorting) -> [Task] {
@@ -88,15 +86,5 @@ class TasksViewModel: ObservableObject {
                     : rhs.createdAt < lhs.createdAt
             }
         })
-    }
-}
-
-extension BehaviorRelay {
-    func bind(to publisher: Published<Element>.Publisher,
-              storeIn cancellableBag: inout Set<AnyCancellable>) -> BehaviorRelay<Element>
-    {
-        publisher.sink { self.accept($0) }
-            .store(in: &cancellableBag)
-        return self
     }
 }
