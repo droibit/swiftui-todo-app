@@ -53,8 +53,10 @@ class TasksViewModel: ObservableObject {
             tasksRepository.tasks,
             tasksFilterSink,
             tasksSortingSink
-        ) { [unowned self] tasks, filter, sorting in
-            self.convert(sourceTasks: tasks, filter: filter, sorting: sorting)
+        ) { sourceTasks, filter, sorting in
+            sourceTasks
+                .filter(by: filter)
+                .sorted(by: sorting)
         }.observeOn(schedulers.main)
             .subscribe(onNext: { [unowned self] tasks in
                 self.getTasksResult = .success(tasks: tasks)
@@ -62,29 +64,5 @@ class TasksViewModel: ObservableObject {
                 let actualError = error as! TasksError
                 self.getTasksResult = .error(message: actualError.message)
             }).disposed(by: universalBag.dispose)
-    }
-
-    private func convert(sourceTasks: [Task], filter: TasksFilter, sorting: TasksSorting) -> [Task] {
-        sourceTasks.filter { task in
-            switch filter {
-            case .all:
-                return true
-            case .active:
-                return task.isActive
-            case .completed:
-                return task.isCompleted
-            }
-        }.sorted(by: { lhs, rhs in
-            switch sorting {
-            case let .title(order):
-                return (order == .asc)
-                    ? lhs.title.lowercased() < rhs.title.lowercased()
-                    : rhs.title.lowercased() < lhs.title.lowercased()
-            case let .createdDate(order):
-                return (order == .asc)
-                    ? lhs.createdAt < rhs.createdAt
-                    : rhs.createdAt < lhs.createdAt
-            }
-        })
     }
 }

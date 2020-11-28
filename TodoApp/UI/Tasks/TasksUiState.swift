@@ -54,6 +54,10 @@ enum TasksSorting {
         }
     }
 
+    static func allCases(_ order: Order) -> [TasksSorting] {
+        [.title(order: order), .createdDate(order: order)]
+    }
+
     case title(order: Order)
     case createdDate(order: Order)
 
@@ -85,8 +89,34 @@ enum TasksSorting {
     }
 }
 
-extension TasksSorting {
-    static func allCases(_ order: Order) -> [TasksSorting] {
-        [.title(order: order), .createdDate(order: order)]
+// MARK: - Convert tasks
+
+extension Array where Element == Task {
+    func filter(by filter: TasksFilter) -> [Element] {
+        self.filter { task in
+            switch filter {
+            case .all:
+                return true
+            case .active:
+                return task.isActive
+            case .completed:
+                return task.isCompleted
+            }
+        }
+    }
+
+    func sorted(by sorting: TasksSorting) -> [Element] {
+        sorted { lhs, rhs in
+            switch sorting {
+            case let .title(order):
+                return (order == .asc)
+                    ? lhs.title.lowercased() < rhs.title.lowercased()
+                    : rhs.title.lowercased() < lhs.title.lowercased()
+            case let .createdDate(order):
+                return (order == .asc)
+                    ? lhs.createdAt < rhs.createdAt
+                    : rhs.createdAt < lhs.createdAt
+            }
+        }
     }
 }
