@@ -23,13 +23,14 @@
 "new_task.title"="New TO-DO";
 "new_task.create.failed"="Failed to create new TO-DO.";
 "new_task.create.successful"="TO-DO created.";
-"edit_task.title"="Edit TO-DO";
-"edit_task.update.failed"="Failed to update TO-DO.";
-"edit_task.update.successful"="TO-DO updated.";
+"update_task.title"="Update TO-DO";
+"update_task.update.failed"="Failed to update TO-DO.";
+"update_task.update.successful"="TO-DO updated.";
 "edit_task.title_label"="Title";
 "edit_task.description.label"="Description";
 "edit_task.description.hint"="Enter your TO-DO here.";
 "edit_task.validation.empty_title"="Fill TO-DO's title";
+"edit_task.done" = "Done";
 
 "statistics.title"="Statistics";
 "statistics.active_tasks"="Active TO-DOs:";

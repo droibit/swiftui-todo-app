@@ -23,13 +23,14 @@
 "new_task.title"="新しいTO-DO";
 "new_task.create.failed"="新しいTO-DOの作成に失敗しました。";
 "new_task.create.successful"="TO-DOを作成しました。";
-"edit_task.title"="TO-DOの編集";
-"edit_task.update.failed"="TO-DOの更新に失敗しました。";
-"edit_task.update.successful"="TO-DOを更新しました.";
+"update_task.title"="TO-DOの更新";
+"update_task.update.failed"="TO-DOの更新に失敗しました。";
+"update_task.update.successful"="TO-DOを更新しました.";
 "edit_task.title_label"="タイトル";
 "edit_task.description.label"="説明";
 "edit_task.description.hint"="TO-DOの説明を入力してください";
 "edit_task.validation.empty_title"="TO-DOのタイトルを入力してください。";
+"edit_task.done" = "完了";
 
 "statistics.title"="統計";
 "statistics.active_tasks"="アクティブなTO-DO:";
