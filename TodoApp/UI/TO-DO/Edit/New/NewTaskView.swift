@@ -8,18 +8,41 @@
 import SwiftUI
 
 struct NewTaskView: View {
-//    @Environment(\.presentationMode) private var presentationMode
-
-    // TODO: Move to ViewModel
-    @State private var title: String = ""
-    @State private var description: String = ""
+    @StateObject private var component = NewTaskComponent.make()
 
     var body: some View {
-        NewTaskNavigationView {
+        component.makeContentView()
+    }
+}
+
+struct NewTaskContentView: View {
+    @Environment(\.presentationMode) private var presentationMode
+
+    @ObservedObject var viewModel: NewTaskViewModel
+
+    var body: some View {
+        NewTaskNavigationView(
+            disabledDone: !viewModel.isInputCompleted,
+            onDone: viewModel.makeTask
+        ) {
             EditTaskView(
-                title: $title,
-                description: $description
-            )
+                title: $viewModel.title,
+                description: $viewModel.description
+            ).onReceive(viewModel.$makeTaskResult) { result in
+                didReceiveResult(result)
+            }
+        }
+    }
+
+    private func didReceiveResult(_ result: MakeTaskResult) {
+        switch result {
+        case .success:
+            presentationMode.wrappedValue.dismiss()
+        case let .error(message):
+            // TODO: Present error HUD
+            print(message)
+        default:
+            break
         }
     }
 }
@@ -27,15 +50,26 @@ struct NewTaskView: View {
 private struct NewTaskNavigationView<Content>: View where Content: View {
     private let content: Content
 
-    init(@ViewBuilder content: () -> Content) {
+    private let disabledDone: Bool
+
+    private let onDone: () -> Void
+
+    init(disabledDone: Bool,
+         onDone: @escaping () -> Void = {},
+         @ViewBuilder content: () -> Content)
+    {
         self.content = content()
+        self.disabledDone = disabledDone
+        self.onDone = onDone
     }
 
     var body: some View {
         NavigationView {
             content
                 .navigationBarTitle(Text(L10n.NewTask.title), displayMode: .inline)
-                .navigationBarItems(trailing: Button(L10n.EditTask.done) {})
+                .navigationBarItems(trailing: Button(L10n.EditTask.done) {
+                    onDone()
+                }.disabled(disabledDone))
         }
     }
 }
@@ -43,7 +77,7 @@ private struct NewTaskNavigationView<Content>: View where Content: View {
 // swiftlint:disable type_name
 struct NewTaskNavigationView_Preview: PreviewProvider {
     static var previews: some View {
-        NewTaskNavigationView {
+        NewTaskNavigationView(disabledDone: false) {} content: {
             Text("Dummy")
         }
     }

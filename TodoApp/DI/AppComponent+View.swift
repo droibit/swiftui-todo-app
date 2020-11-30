@@ -7,8 +7,14 @@
 
 import Foundation
 
+// MAKR: - TO-DO
+
 extension AppComponent {
     var tasks: TasksComponent {
         TasksComponent(parent: self)
+    }
+
+    var newTask: NewTaskComponent {
+        NewTaskComponent(parent: self)
     }
 }

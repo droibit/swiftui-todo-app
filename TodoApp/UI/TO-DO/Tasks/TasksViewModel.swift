@@ -16,7 +16,7 @@ class TasksViewModel: ObservableObject {
 
     private let schedulers: SchedulerProvider
 
-    private var universalBag = UniversalDisposeBag()
+    private let universalBag = UniversalDisposeBag()
 
     @Published var tasksFilter: TasksFilter = .all
 

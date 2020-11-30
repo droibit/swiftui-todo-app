@@ -51,7 +51,6 @@ private struct TasksNavigationView<Content>: View where Content: View {
     var body: some View {
         NavigationView {
             content
-                .navigationBarTitle(Text(L10n.NewTask.title), displayMode: .inline)
                 .navigationBarTitle(Text(L10n.Tasks.title), displayMode: .inline)
                 .navigationBarItems(leading: Button(action: {}, label: {
                     Image(systemName: "gear")

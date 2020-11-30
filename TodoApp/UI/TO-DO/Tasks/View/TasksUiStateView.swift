@@ -16,7 +16,7 @@ struct TaskListView: View {
     @Binding var tasksSorting: TasksSorting
 
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             TasksHeader(
                 filter: $tasksFilter,
                 sorting: $tasksSorting
