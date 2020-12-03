@@ -28,9 +28,8 @@ struct NewTaskContentView: View {
             EditTaskView(
                 title: $viewModel.title,
                 description: $viewModel.description
-            ).onReceive(viewModel.$makeTaskResult) { result in
-                didReceiveResult(result)
-            }
+            )
+            .onReceive(viewModel.$makeTaskResult, perform: self.didReceiveResult)
         }
     }
 

@@ -21,7 +21,7 @@ class NewTaskViewModel: ObservableObject {
 
     @Published var description: String = ""
 
-    @Published var makeTaskResult: MakeTaskResult
+    @Published private(set) var makeTaskResult: MakeTaskResult
 
     var isInputCompleted: Bool {
         !title.isEmpty
@@ -42,7 +42,7 @@ class NewTaskViewModel: ObservableObject {
     }
 
     func makeTask() {
-        if case .inProgress = makeTaskResult {
+        if makeTaskResult.isInProgress {
             return
         }
         makeTaskResult = .inProgress

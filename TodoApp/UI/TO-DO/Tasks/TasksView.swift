@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TasksView: View {
-    @StateObject private var component: TasksComponent = .make()
+    @StateObject private var component = TasksComponent.make()
 
     var body: some View {
         component.makeContentView()

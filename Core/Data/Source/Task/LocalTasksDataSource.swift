@@ -13,6 +13,7 @@ import RxSwift
 
 private typealias Columns = TaskEntity.Columns
 
+// TODO: Introduce in-memory cache to reduce db access.
 class LocalTasksDataSource: TasksDataSource {
     private let databaseQueue: DatabaseQueue
 

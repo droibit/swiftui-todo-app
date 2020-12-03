@@ -7,9 +7,13 @@
 
 import Foundation
 
-enum MakeTaskResult {
+enum MakeTaskResult: Equatable {
     case none
     case inProgress
     case success
     case error(message: String)
+
+    var isInProgress: Bool {
+        self == .inProgress
+    }
 }
