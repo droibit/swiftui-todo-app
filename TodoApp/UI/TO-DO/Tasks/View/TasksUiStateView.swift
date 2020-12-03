@@ -11,15 +11,24 @@ import SwiftUI
 // MARK: - TaskListView
 
 struct TaskListView: View {
-    let tasks: [Task]
-    @Binding var tasksFilter: TasksFilter
-    @Binding var tasksSorting: TasksSorting
+    private let tasks: [Task]
+    private let tasksFilter: Binding<TasksFilter>
+    private let tasksSorting: Binding<TasksSorting>
+
+    init(tasks: [Task],
+         tasksFilter: Binding<TasksFilter>,
+         tasksSorting: Binding<TasksSorting>)
+    {
+        self.tasks = tasks
+        self.tasksFilter = tasksFilter
+        self.tasksSorting = tasksSorting
+    }
 
     var body: some View {
         VStack(spacing: 0) {
             TasksHeader(
-                filter: $tasksFilter,
-                sorting: $tasksSorting
+                filter: tasksFilter,
+                sorting: tasksSorting
             )
             if tasks.isEmpty {
                 EmptyTasksView()
@@ -32,7 +41,9 @@ struct TaskListView: View {
     private func taskListView() -> some View {
         List {
             ForEach(tasks) { task in
-                TaskItemView(task: task)
+                NavigationLink(destination: DetailTaskView(task: task)) {
+                    TaskItemView(task: task)
+                }
             }.onDelete { indexSet in
                 print("delete at: \(indexSet)")
             }
