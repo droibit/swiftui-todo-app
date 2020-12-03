@@ -20,6 +20,8 @@
 "tasks.sort_by.title"="Title";
 "tasks.sort_by.created_date"="Created Date";
 
+"detail_task.title" = "Detail";
+
 "new_task.title"="New TO-DO";
 "new_task.create.failed"="Failed to create new TO-DO.";
 "new_task.create.successful"="TO-DO created.";

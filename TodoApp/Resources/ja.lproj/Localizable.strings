@@ -20,6 +20,8 @@
 "tasks.sort_by.title"="タイトル";
 "tasks.sort_by.created_date"="作成日";
 
+"detail_task.title" = "詳細";
+
 "new_task.title"="新しいTO-DO";
 "new_task.create.failed"="新しいTO-DOの作成に失敗しました。";
 "new_task.create.successful"="TO-DOを作成しました。";
