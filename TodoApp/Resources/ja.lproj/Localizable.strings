@@ -21,6 +21,8 @@
 "tasks.sort_by.created_date"="作成日";
 
 "detail_task.title" = "詳細";
+"detail_task.edit" = "編集";
+"detail_task.created_at_label" = "作成日 %@";
 
 "new_task.title"="新しいTO-DO";
 "new_task.create.failed"="新しいTO-DOの作成に失敗しました。";

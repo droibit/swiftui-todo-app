@@ -16,11 +16,9 @@ class DetailTaskViewModel: ObservableObject {
 
     private let schedulers: SchedulerProvider
 
-    private let taskId: String
-
     private var universalBag: UniversalDisposeBag!
 
-    @Published private(set) var getTaskResult: GetTaskResult
+    @Published private(set) var task: Task
 
     @Published private(set) var deleteTaskResult: DeleteTaskResult
 
@@ -34,8 +32,7 @@ class DetailTaskViewModel: ObservableObject {
     {
         self.tasksRepository = tasksRepository
         self.schedulers = schedulers
-        taskId = task.id
-        getTaskResult = .success(task: task)
+        self.task = task
         self.deleteTaskResult = deleteTaskResult
         self.toggleTaskCompletedResult = toggleTaskCompletedResult
     }
@@ -46,20 +43,20 @@ class DetailTaskViewModel: ObservableObject {
         }
         universalBag = UniversalDisposeBag()
 
-        subscribeTask(by: taskId)
+        subscribeTask()
     }
 
-    private func subscribeTask(by taskId: String) {
+    private func subscribeTask() {
         tasksRepository.tasks
-            .map { tasks in tasks.first(where: { $0.id == taskId }) }
+            .compactMap { [unowned self] tasks in tasks.first(where: { $0.id == self.task.id }) }
+            .filter { [unowned self] task in self.task != task }
             .observeOn(schedulers.main)
             .subscribe(onNext: { [unowned self] task in
-                if let task = task {
-                    self.getTaskResult = .success(task: task)
-                }
-            }, onError: { [unowned self] error in
+                self.task = task
+            }, onError: { error in
+                // TODO: Improve error handling.
                 let actualError = error as! TasksError
-                self.getTaskResult = .error(message: actualError.message)
+                print("Error: \(actualError)")
             }).disposed(by: universalBag.dispose)
     }
 
@@ -69,7 +66,7 @@ class DetailTaskViewModel: ObservableObject {
         }
         toggleTaskCompletedResult = .inProgress
 
-        tasksRepository.getTask(taskId: taskId)
+        tasksRepository.getTask(taskId: task.id)
             .flatMapCompletable { task in
                 if task.isCompleted {
                     return self.tasksRepository.activateTask(taskId: task.id)
@@ -92,7 +89,7 @@ class DetailTaskViewModel: ObservableObject {
         }
         deleteTaskResult = .inProgress
 
-        tasksRepository.deleteTask(taskId: taskId)
+        tasksRepository.deleteTask(taskId: task.id)
             .observeOn(schedulers.main)
             .subscribe(onCompleted: { [unowned self] in
                 self.deleteTaskResult = .success

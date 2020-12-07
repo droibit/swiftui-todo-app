@@ -21,6 +21,8 @@
 "tasks.sort_by.created_date"="Created Date";
 
 "detail_task.title" = "Detail";
+"detail_task.edit" = "Edit";
+"detail_task.created_at_label" = "Created at %@";
 
 "new_task.title"="New TO-DO";
 "new_task.create.failed"="Failed to create new TO-DO.";

@@ -11,7 +11,7 @@ import SwiftUI
 // MARK: - TaskListView
 
 struct TaskListView: View {
-    private let tasks: [Task]
+    private var tasks: [Task]
     private let tasksFilter: Binding<TasksFilter>
     private let tasksSorting: Binding<TasksSorting>
 
@@ -39,13 +39,9 @@ struct TaskListView: View {
     }
 
     private func taskListView() -> some View {
-        List {
-            ForEach(tasks) { task in
-                NavigationLink(destination: DetailTaskView(task: task)) {
-                    TaskItemView(task: task)
-                }
-            }.onDelete { indexSet in
-                print("delete at: \(indexSet)")
+        List(tasks) { task in
+            NavigationLink(destination: DetailTaskView(task: task)) {
+                TaskItemView(task: task)
             }
         }
     }

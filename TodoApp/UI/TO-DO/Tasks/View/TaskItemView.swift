@@ -14,8 +14,7 @@ struct TaskItemView: View {
     // TODO: review text color.
     var body: some View {
         HStack {
-            task.isCompleted.checkmarkIcon
-                .font(Font.headline.bold())
+            Checkmark(checked: task.isCompleted)
                 .padding(.all, 4)
 
             VStack(alignment: .leading, spacing: 4) {
@@ -58,16 +57,6 @@ struct TaskItemView_Previews: PreviewProvider {
             )
             .previewLayout(.sizeThatFits)
             .environment(\.colorScheme, .dark)
-        }
-    }
-}
-
-private extension Bool {
-    var checkmarkIcon: Image {
-        if self {
-            return Image(systemName: "checkmark.square")
-        } else {
-            return Image(systemName: "square")
         }
     }
 }

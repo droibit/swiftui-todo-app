@@ -8,10 +8,10 @@
 import Core
 import Foundation
 
-enum GetTaskResult {
-    case success(task: Task)
-    case error(message: String)
-}
+// enum GetTaskResult {
+//    case success(task: Task)
+//    case error(message: String)
+// }
 
 enum DeleteTaskResult: Equatable {
     case none
