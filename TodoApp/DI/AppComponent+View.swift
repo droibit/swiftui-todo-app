@@ -21,4 +21,8 @@ extension AppComponent {
     var newTask: NewTaskComponent {
         NewTaskComponent(parent: self)
     }
+
+    var updateTask: UpdateTaskComponent {
+        UpdateTaskComponent(parent: self)
+    }
 }

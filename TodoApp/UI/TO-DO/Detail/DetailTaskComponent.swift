@@ -24,7 +24,7 @@ class DetailTaskComponent: Component<DetailTaskDependency>, ObservableObject {
             DetailTaskViewModel(
                 tasksRepository: dependency.tasksRepository,
                 schedulers: dependency.schedulers,
-                initailTask: task
+                initialTask: task
             )
         }
     }

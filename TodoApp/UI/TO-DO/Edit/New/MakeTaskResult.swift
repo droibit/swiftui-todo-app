@@ -1,5 +1,5 @@
 //
-//  NewTaskUiState.swift
+//  MakeTaskResult.swift
 //  TodoApp
 //
 //  Created by Shinya Kumagai on 2020/11/30.

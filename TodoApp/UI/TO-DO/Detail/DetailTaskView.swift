@@ -34,6 +34,8 @@ struct DetailTaskContentView: View {
 
     @ObservedObject var viewModel: DetailTaskViewModel
 
+    @State private var currentTask: Task?
+
     var body: some View {
         DetailTaskNavigation(onEdit: onEdit) {
             _DetailTaskContentView(
@@ -45,9 +47,14 @@ struct DetailTaskContentView: View {
             .onReceive(viewModel.$toggleTaskCompletedResult, perform: self.onReceiveResult)
             .onAppear(perform: viewModel.onAppear)
         }
+        .sheet(item: $currentTask) { task in
+            UpdateTaskView(task: task)
+        }
     }
 
-    private func onEdit() {}
+    private func onEdit() {
+        currentTask = viewModel.task
+    }
 
     private func onReceiveResult(result: ToggleTaskCompletedResult) {
         guard case .error = result else {

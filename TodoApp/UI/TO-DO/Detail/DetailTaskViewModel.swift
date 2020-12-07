@@ -26,7 +26,7 @@ class DetailTaskViewModel: ObservableObject {
 
     init(tasksRepository: TasksRepository,
          schedulers: SchedulerProvider,
-         initailTask task: Task,
+         initialTask task: Task,
          deleteTaskResult: DeleteTaskResult = .none,
          toggleTaskCompletedResult: ToggleTaskCompletedResult = .none)
     {

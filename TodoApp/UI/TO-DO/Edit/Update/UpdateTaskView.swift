@@ -1,46 +1,53 @@
 //
-//  NewTaskView.swift
+//  UpdateTaskView.swift
 //  TodoApp
 //
-//  Created by Shinya Kumagai on 2020/11/29.
+//  Created by Shinya Kumagai on 2020/12/07.
 //
 
+import Core
 import SwiftUI
 
-struct NewTaskView: View {
-    @StateObject private var component = NewTaskComponent.make()
+struct UpdateTaskView: View {
+    @StateObject private var component = UpdateTaskComponent.make()
+
+    let initialTask: Task
+
+    init(task: Task) {
+        initialTask = task
+    }
 
     var body: some View {
-        component.makeContentView()
+        component.makeContentView(initialTask: initialTask)
     }
 }
 
-struct NewTaskContentView: View {
+struct UpdateTaskContentView: View {
     @Environment(\.presentationMode) private var presentationMode
 
-    @ObservedObject var viewModel: NewTaskViewModel
+    @ObservedObject var viewModel: UpdateTaskViewModel
 
     var body: some View {
         EditTaskNavigationView(
-            title: L10n.NewTask.title,
+            title: L10n.UpdateTask.title,
             doneAction: doneAction
         ) {
             EditTaskView(
                 title: $viewModel.title,
                 description: $viewModel.description
             )
-            .onReceive(viewModel.$makeTaskResult, perform: self.didReceiveResult)
+            .onReceive(viewModel.$updateTaskResult, perform: self.didReceiveResult)
         }
     }
 
     private var doneAction: DoneEditTaskAction {
         DoneEditTaskAction(
             isEnabled: viewModel.isInputCompleted,
-            handler: viewModel.makeTask
+            handler: viewModel.updateTask
         )
     }
 
-    private func didReceiveResult(_ result: MakeTaskResult) {
+    private func didReceiveResult(_ result: UpdateTaskResult) {
         switch result {
         case .success:
             presentationMode.wrappedValue.dismiss()
