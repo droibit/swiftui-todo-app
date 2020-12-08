@@ -9,12 +9,6 @@ import Core
 import Foundation
 import SwiftUI
 
-enum GetTasksResult {
-    case inProgress(initial: Bool)
-    case success(tasks: [Task])
-    case error(message: String)
-}
-
 // MARK: - TasksFilter
 
 enum TasksFilter: Int, CaseIterable {
