@@ -40,7 +40,7 @@ struct TaskListView: View {
 
     private func taskListView() -> some View {
         List(tasks) { task in
-            NavigationLink(destination: DetailTaskView(task: task)) {
+            NavigationLink(destination: TaskDetailView(task: task)) {
                 TaskItemView(task: task)
             }
         }

@@ -14,8 +14,8 @@ extension AppComponent {
         TasksComponent(parent: self)
     }
 
-    var detailTask: DetailTaskComponent {
-        DetailTaskComponent(parent: self)
+    var taskDetail: TaskDetailComponent {
+        TaskDetailComponent(parent: self)
     }
 
     var newTask: NewTaskComponent {

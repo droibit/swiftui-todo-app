@@ -1,5 +1,5 @@
 //
-//  DetailTaskView.swift
+//  TaskDetailView.swift
 //  TodoApp
 //
 //  Created by Shinya Kumagai on 2020/12/01.
@@ -8,8 +8,8 @@
 import Core
 import SwiftUI
 
-struct DetailTaskView: View {
-    @StateObject private var component = DetailTaskComponent.make()
+struct TaskDetailView: View {
+    @StateObject private var component = TaskDetailComponent.make()
 
     let initialTask: Task
 
@@ -22,7 +22,7 @@ struct DetailTaskView: View {
     }
 }
 
-struct DetailTaskContentView: View {
+struct TaskDetailContentView: View {
     private static let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .long
@@ -32,13 +32,13 @@ struct DetailTaskContentView: View {
 
     @Environment(\.presentationMode) private var presentationMode
 
-    @ObservedObject var viewModel: DetailTaskViewModel
+    @ObservedObject var viewModel: TaskDetailViewModel
 
     @State private var currentTask: Task?
 
     var body: some View {
-        DetailTaskNavigation(onEdit: onEdit) {
-            _DetailTaskContentView(
+        TaskDetailNavigation(onEdit: onEdit) {
+            _TaskDetailContentView(
                 task: viewModel.task,
                 onToggleCompleted: viewModel.toggleTaskCompleted,
                 onDelete: viewModel.deleteTask
@@ -76,7 +76,7 @@ struct DetailTaskContentView: View {
     }
 }
 
-private struct _DetailTaskContentView: View {
+private struct _TaskDetailContentView: View {
     private static let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .long
@@ -138,9 +138,9 @@ private struct _DetailTaskContentView: View {
     }
 }
 
-// MARK: - DetailTaskNavigation
+// MARK: - TaskDetailNavigation
 
-private struct DetailTaskNavigation<Content>: View where Content: View {
+private struct TaskDetailNavigation<Content>: View where Content: View {
     private let onEdit: () -> Void
     private let content: Content
 
@@ -160,12 +160,12 @@ private struct DetailTaskNavigation<Content>: View where Content: View {
 
 // MARK: - Preview
 
-struct DetailTaskContentView_Previews: PreviewProvider {
+struct TaskDetailContentView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             NavigationView {
-                DetailTaskNavigation {
-                    _DetailTaskContentView(
+                TaskDetailNavigation {
+                    _TaskDetailContentView(
                         task: Task(
                             id: "task",
                             title: "Example Domain",
@@ -178,8 +178,8 @@ struct DetailTaskContentView_Previews: PreviewProvider {
             }
 
             NavigationView {
-                DetailTaskNavigation {
-                    _DetailTaskContentView(
+                TaskDetailNavigation {
+                    _TaskDetailContentView(
                         task: Task(
                             id: "task",
                             title: "By something",

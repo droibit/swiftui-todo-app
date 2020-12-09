@@ -1,5 +1,5 @@
 //
-//  DetailTaskViewModel.swift
+//  TaskDetailViewModel.swift
 //  TodoApp
 //
 //  Created by Shinya Kumagai on 2020/12/01.
@@ -11,7 +11,7 @@ import Foundation
 import RxRelay
 import RxSwift
 
-class DetailTaskViewModel: ObservableObject {
+class TaskDetailViewModel: ObservableObject {
     private let tasksRepository: TasksRepository
 
     private let schedulers: SchedulerProvider
