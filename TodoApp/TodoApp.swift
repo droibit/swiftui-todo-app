@@ -15,7 +15,7 @@ struct TodoApp: App {
                         Text(L10n.Tasks.title)
                     }
                     .tag(0)
-                StatisticsView()
+                StatisticsView.Builder()
                     .tabItem {
                         Image(systemName: "ellipsis.circle")
                         Text(L10n.Statistics.title)

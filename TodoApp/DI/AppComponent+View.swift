@@ -26,3 +26,11 @@ extension AppComponent {
         UpdateTaskComponent(parent: self)
     }
 }
+
+// MARK: - Statistics
+
+extension AppComponent {
+    var statistics: StatisticsComponent {
+        StatisticsComponent(parent: self)
+    }
+}

@@ -37,8 +37,8 @@
 "edit_task.done" = "完了";
 
 "statistics.title"="統計";
-"statistics.active_tasks"="アクティブなTO-DO:";
-"statistics.completed_tasks"="完了TO-DO:";
+"statistics.active_tasks"="アクティブなTO-DO";
+"statistics.completed_tasks"="完了TO-DO";
 
 "settings.title"="設定";
 "settings.app.title"="アプリ";

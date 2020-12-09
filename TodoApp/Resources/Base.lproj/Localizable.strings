@@ -37,8 +37,8 @@
 "edit_task.done" = "Done";
 
 "statistics.title"="Statistics";
-"statistics.active_tasks"="Active TO-DOs:";
-"statistics.completed_tasks"="Completed TO-DOs:";
+"statistics.active_tasks"="Active TO-DOs";
+"statistics.completed_tasks"="Completed TO-DOs";
 
 "settings.title"="Settings";
 "settings.app.title"="App";

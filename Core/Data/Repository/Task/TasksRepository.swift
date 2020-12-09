@@ -11,7 +11,7 @@ import RxSwift
 public protocol TasksRepository {
     var tasks: Observable<[Task]> { get }
 
-    // TODO: var tasks2: Observable<Result<[Task], TasksError>> { get }
+    // TODO: var tasks: Observable<Result<[Task], TasksError>> { get }
 
     func initialize()
 

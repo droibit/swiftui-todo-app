@@ -52,9 +52,7 @@ private struct TasksNavigationView<Content>: View where Content: View {
         NavigationView {
             content
                 .navigationBarTitle(Text(L10n.Tasks.title), displayMode: .inline)
-                .navigationBarItems(leading: Button(action: {}, label: {
-                    Image(systemName: "gear")
-                }), trailing: Button(action: {
+                .navigationBarItems(trailing: Button(action: {
                     presentsNewTask = true
                 }, label: {
                     Image(systemName: "plus")
