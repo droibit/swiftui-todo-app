@@ -31,7 +31,7 @@ struct TasksContentView: View {
                         tasksSorting: $viewModel.tasksSorting
                     )
                 case let .error(message):
-                    TasksErrorView(message: message)
+                    TaskErrorView(message: message)
                 }
             }
             .onAppear(perform: viewModel.onAppear)

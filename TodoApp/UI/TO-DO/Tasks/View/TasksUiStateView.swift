@@ -60,24 +60,7 @@ private struct EmptyTasksView: View {
     }
 }
 
-// MARK: - TasksErrorView
-
-struct TasksErrorView: View {
-    let message: String
-    // TODO: Retry to get tasks.
-    var body: some View {
-        VStack(spacing: 16) {
-            Image(systemName: "exclamationmark.circle")
-                .font(Font.system(size: 40))
-
-            Text(message)
-                .font(Font.subheadline.weight(.regular))
-                .padding(.horizontal)
-        }
-    }
-}
-
-// MARK: - Preview
+// MARK: - Previews
 
 struct TaskListView_Previews: PreviewProvider {
     static var previews: some View {
@@ -98,8 +81,6 @@ struct TaskListView_Previews: PreviewProvider {
                 tasksFilter: .constant(.completed),
                 tasksSorting: .constant(.createdDate(order: .asc))
             )
-
-            TasksErrorView(message: "Failed to get tasks.")
         }
     }
 }
