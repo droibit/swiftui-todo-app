@@ -8,7 +8,7 @@
 import Core
 import SwiftUI
 
-// MARK: - TaskListView
+// MARK: - ListView
 
 struct TaskListView: View {
     private var tasks: [Task]
@@ -40,12 +40,14 @@ struct TaskListView: View {
 
     private func taskListView() -> some View {
         List(tasks) { task in
-            NavigationLink(destination: TaskDetailView(task: task)) {
+            NavigationLink(destination: TaskDetailView.Builder(task: task)) {
                 TaskItemView(task: task)
             }
         }
     }
 }
+
+// MARK: - EmptyView
 
 private struct EmptyTasksView: View {
     var body: some View {

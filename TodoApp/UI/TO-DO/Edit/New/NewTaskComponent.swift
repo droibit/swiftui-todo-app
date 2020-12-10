@@ -24,8 +24,8 @@ class NewTaskComponent: Component<NewTaskDependency>, ObservableObject {
         }
     }
 
-    func makeContentView() -> NewTaskContentView {
-        NewTaskContentView(viewModel: viewModel)
+    func makeView() -> NewTaskView {
+        NewTaskView(viewModel: viewModel)
     }
 }
 

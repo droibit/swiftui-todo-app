@@ -24,8 +24,8 @@ class TasksComponent: Component<TasksDependency>, ObservableObject {
         }
     }
 
-    func makeContentView() -> TasksContentView {
-        TasksContentView(viewModel: viewModel)
+    func makeView() -> TasksView {
+        TasksView(viewModel: viewModel)
     }
 }
 

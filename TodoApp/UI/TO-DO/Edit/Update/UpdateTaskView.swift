@@ -9,20 +9,6 @@ import Core
 import SwiftUI
 
 struct UpdateTaskView: View {
-    @StateObject private var component = UpdateTaskComponent.make()
-
-    let initialTask: Task
-
-    init(task: Task) {
-        initialTask = task
-    }
-
-    var body: some View {
-        component.makeContentView(initialTask: initialTask)
-    }
-}
-
-struct UpdateTaskContentView: View {
     @Environment(\.presentationMode) private var presentationMode
 
     @ObservedObject var viewModel: UpdateTaskViewModel
@@ -56,6 +42,24 @@ struct UpdateTaskContentView: View {
             print(message)
         default:
             break
+        }
+    }
+}
+
+// MARK: - Builder
+
+extension UpdateTaskView {
+    struct Builder: View {
+        @StateObject private var component = UpdateTaskComponent.make()
+
+        let initialTask: Task
+
+        init(task: Task) {
+            initialTask = task
+        }
+
+        var body: some View {
+            component.makeContentView(initialTask: initialTask)
         }
     }
 }

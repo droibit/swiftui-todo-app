@@ -9,37 +9,16 @@ import Core
 import SwiftUI
 
 struct TaskDetailView: View {
-    @StateObject private var component = TaskDetailComponent.make()
-
-    let initialTask: Task
-
-    init(task: Task) {
-        initialTask = task
-    }
-
-    var body: some View {
-        component.makeContentView(initialTask: initialTask)
-    }
-}
-
-struct TaskDetailContentView: View {
-    private static let dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .long
-        formatter.timeStyle = .short
-        return formatter
-    }()
+    @ObservedObject var viewModel: TaskDetailViewModel
 
     @Environment(\.presentationMode) private var presentationMode
-
-    @ObservedObject var viewModel: TaskDetailViewModel
 
     @State private var currentTask: Task?
 
     var body: some View {
-        TaskDetailNavigation(onEdit: onEdit) {
-            _TaskDetailContentView(
-                task: viewModel.task,
+        TaskDetailView.Navigation(onEdit: onEdit) {
+            TaskDetailUiStateView(
+                uiState: viewModel.uiState,
                 onToggleCompleted: viewModel.toggleTaskCompleted,
                 onDelete: viewModel.deleteTask
             )
@@ -48,12 +27,12 @@ struct TaskDetailContentView: View {
             .onAppear(perform: viewModel.onAppear)
         }
         .sheet(item: $currentTask) { task in
-            UpdateTaskView(task: task)
+            UpdateTaskView.Builder(task: task)
         }
     }
 
     private func onEdit() {
-        currentTask = viewModel.task
+        currentTask = viewModel.uiState.task
     }
 
     private func onReceiveResult(result: ToggleTaskCompletedResult) {
@@ -76,85 +55,43 @@ struct TaskDetailContentView: View {
     }
 }
 
-private struct _TaskDetailContentView: View {
-    private static let dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .long
-        formatter.timeStyle = .short
-        return formatter
-    }()
+// MARK: - Builder
 
-    private let task: Task
-    private let onToggleCompleted: () -> Void
-    private let onDelete: () -> Void
+extension TaskDetailView {
+    struct Builder: View {
+        @StateObject private var component = TaskDetailComponent.make()
 
-    init(task: Task,
-         onToggleCompleted: @escaping () -> Void = {},
-         onDelete: @escaping () -> Void = {})
-    {
-        self.task = task
-        self.onToggleCompleted = onToggleCompleted
-        self.onDelete = onDelete
-    }
+        let initialTask: Task
 
-    var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 8) {
-                HStack {
-                    Button(action: onToggleCompleted, label: {
-                        Checkmark(checked: task.isCompleted)
-                            .foregroundColor(.primary)
-                    })
+        init(task: Task) {
+            initialTask = task
+        }
 
-                    Text(task.title)
-                        .font(.title3)
-                        .bold()
-                    Spacer()
-                }
-
-                if !task.description.isEmpty {
-                    Text(task.description)
-                        .font(.subheadline)
-                }
-
-                HStack {
-                    Label(L10n.DetailTask.createdAtLabel(
-                        Self.dateFormatter.string(from: task.createdAt)
-                    ), systemImage: "calendar.circle")
-                        .font(.footnote)
-                        .foregroundColor(.secondary)
-                    Spacer()
-                }
-
-                HStack {
-                    Button("Delete", action: onDelete)
-                        .font(.body)
-                        .padding()
-                }.frame(maxWidth: .infinity)
-            }
-            .frame(maxWidth: .infinity)
-            .padding()
+        var body: some View {
+            component.makeView(initialTask: initialTask)
         }
     }
 }
 
-// MARK: - TaskDetailNavigation
+// MARK: - Navigation
 
-private struct TaskDetailNavigation<Content>: View where Content: View {
-    private let onEdit: () -> Void
-    private let content: Content
+private extension TaskDetailView {
+    struct Navigation<Content>: View where Content: View {
+        private let onEdit: () -> Void
+        private let content: Content
 
-    init(onEdit: @escaping () -> Void = {},
-         @ViewBuilder content: () -> Content)
-    {
-        self.onEdit = onEdit
-        self.content = content()
-    }
+        init(onEdit: @escaping () -> Void = {},
+             @ViewBuilder content: () -> Content)
+        {
+            self.onEdit = onEdit
+            self.content = content()
+        }
 
-    var body: some View {
-        content
-            .navigationBarTitle(Text(L10n.DetailTask.title), displayMode: .inline)
-            .navigationBarItems(trailing: Button(L10n.DetailTask.edit, action: onEdit))
+        var body: some View {
+            content
+                .navigationBarTitle(Text(L10n.DetailTask.title), displayMode: .inline)
+                .navigationBarItems(trailing: Button(L10n.DetailTask.edit, action: onEdit))
+        }
     }
 }
 
@@ -162,33 +99,9 @@ private struct TaskDetailNavigation<Content>: View where Content: View {
 
 struct TaskDetailContentView_Previews: PreviewProvider {
     static var previews: some View {
-        Group {
-            NavigationView {
-                TaskDetailNavigation {
-                    _TaskDetailContentView(
-                        task: Task(
-                            id: "task",
-                            title: "Example Domain",
-                            description: "This domain is for use in illustrative examples in documents. You may use this domain in literature without prior coordination or asking for permission.",
-                            isCompleted: true,
-                            createdAt: Date(timeIntervalSince1970: 1_607_094_000)
-                        )
-                    )
-                }
-            }
-
-            NavigationView {
-                TaskDetailNavigation {
-                    _TaskDetailContentView(
-                        task: Task(
-                            id: "task",
-                            title: "By something",
-                            description: "...",
-                            isCompleted: true,
-                            createdAt: Date(timeIntervalSince1970: 1_607_094_000)
-                        )
-                    )
-                }
+        NavigationView {
+            TaskDetailView.Navigation {
+                Text("Dummy")
             }
         }
     }

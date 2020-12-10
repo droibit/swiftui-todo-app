@@ -45,6 +45,8 @@ struct EditTaskNavigationView<Content>: View where Content: View {
     }
 }
 
+// MARK: - Previews
+
 struct EditTaskNavigationView_Previews: PreviewProvider {
     static var previews: some View {
         EditTaskNavigationView(

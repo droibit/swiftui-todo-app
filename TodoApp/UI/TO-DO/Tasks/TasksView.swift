@@ -8,18 +8,10 @@
 import SwiftUI
 
 struct TasksView: View {
-    @StateObject private var component = TasksComponent.make()
-
-    var body: some View {
-        component.makeContentView()
-    }
-}
-
-struct TasksContentView: View {
     @ObservedObject var viewModel: TasksViewModel
 
     var body: some View {
-        TasksNavigationView {
+        TasksView.Navigation {
             Group {
                 switch viewModel.getTasksResult {
                 case .inProgress:
@@ -39,32 +31,48 @@ struct TasksContentView: View {
     }
 }
 
-private struct TasksNavigationView<Content>: View where Content: View {
-    private let content: Content
+// MRK: - Builder
 
-    @State private var presentsNewTask: Bool = false
+extension TasksView {
+    struct Builder: View {
+        @StateObject private var component = TasksComponent.make()
 
-    init(@ViewBuilder content: () -> Content) {
-        self.content = content()
+        var body: some View {
+            component.makeView()
+        }
     }
+}
 
-    var body: some View {
-        NavigationView {
-            content
-                .navigationBarTitle(Text(L10n.Tasks.title), displayMode: .inline)
-                .navigationBarItems(trailing: Button(action: {
-                    presentsNewTask = true
-                }, label: {
-                    Image(systemName: "plus")
-                }))
-                .sheet(isPresented: $presentsNewTask, content: NewTaskView.init)
+// MARK: - Navigation
+
+private extension TasksView {
+    struct Navigation<Content>: View where Content: View {
+        private let content: Content
+
+        @State private var presentsNewTask: Bool = false
+
+        init(@ViewBuilder content: () -> Content) {
+            self.content = content()
+        }
+
+        var body: some View {
+            NavigationView {
+                content
+                    .navigationBarTitle(Text(L10n.Tasks.title), displayMode: .inline)
+                    .navigationBarItems(trailing: Button(action: {
+                        presentsNewTask = true
+                    }, label: {
+                        Image(systemName: "plus")
+                    }))
+                    .sheet(isPresented: $presentsNewTask, content: NewTaskView.Builder.init)
+            }
         }
     }
 }
 
 struct TasksNavigationView_Previews: PreviewProvider {
     static var previews: some View {
-        TasksNavigationView {
+        TasksView.Navigation {
             Text("Dummy")
         }
     }

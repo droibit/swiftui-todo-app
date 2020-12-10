@@ -8,17 +8,9 @@
 import SwiftUI
 
 struct NewTaskView: View {
-    @StateObject private var component = NewTaskComponent.make()
-
-    var body: some View {
-        component.makeContentView()
-    }
-}
-
-struct NewTaskContentView: View {
-    @Environment(\.presentationMode) private var presentationMode
-
     @ObservedObject var viewModel: NewTaskViewModel
+
+    @Environment(\.presentationMode) private var presentationMode
 
     var body: some View {
         EditTaskNavigationView(
@@ -49,6 +41,18 @@ struct NewTaskContentView: View {
             print(message)
         default:
             break
+        }
+    }
+}
+
+// MARK: - Builder
+
+extension NewTaskView {
+    struct Builder: View {
+        @StateObject private var component = NewTaskComponent.make()
+
+        var body: some View {
+            component.makeView()
         }
     }
 }

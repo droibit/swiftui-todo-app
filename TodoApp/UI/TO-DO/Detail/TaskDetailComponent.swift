@@ -15,8 +15,8 @@ protocol TaskDetailDependency: Dependency {
 }
 
 class TaskDetailComponent: Component<TaskDetailDependency>, ObservableObject {
-    func makeContentView(initialTask: Task) -> TaskDetailContentView {
-        TaskDetailContentView(viewModel: viewModel(with: initialTask))
+    func makeView(initialTask: Task) -> TaskDetailView {
+        TaskDetailView(viewModel: viewModel(with: initialTask))
     }
 
     private func viewModel(with task: Task) -> TaskDetailViewModel {

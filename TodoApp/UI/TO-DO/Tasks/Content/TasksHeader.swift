@@ -77,6 +77,8 @@ struct TasksHeader: View {
     }
 }
 
+// MARK: - Previews
+
 struct TasksHeader_Previews: PreviewProvider {
     static var previews: some View {
         Group {

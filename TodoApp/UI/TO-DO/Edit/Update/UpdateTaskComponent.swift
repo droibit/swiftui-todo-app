@@ -15,17 +15,8 @@ protocol UpdateTaskDependency: Dependency {
 }
 
 class UpdateTaskComponent: Component<UpdateTaskDependency>, ObservableObject {
-    private var viewModel: NewTaskViewModel {
-        shared {
-            NewTaskViewModel(
-                tasksRepository: dependency.tasksRepository,
-                schedulers: dependency.schedulers
-            )
-        }
-    }
-
-    func makeContentView(initialTask task: Task) -> UpdateTaskContentView {
-        UpdateTaskContentView(viewModel: viewModel(with: task))
+    func makeContentView(initialTask task: Task) -> UpdateTaskView {
+        UpdateTaskView(viewModel: viewModel(with: task))
     }
 
     private func viewModel(with task: Task) -> UpdateTaskViewModel {

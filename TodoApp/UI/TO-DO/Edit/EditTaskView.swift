@@ -46,7 +46,7 @@ struct EditTaskView: View {
                 .font(.subheadline)
                 .foregroundColor(.secondary)
             VStack {
-                // TODO: Add placeholder/
+                // TODO: Add placeholder
                 TextEditor(text: $description)
                     .font(.title3)
                     .multilineTextAlignment(.leading)
@@ -56,6 +56,8 @@ struct EditTaskView: View {
         .padding()
     }
 }
+
+// MARK: - Previews
 
 struct EditTaskView_Previews: PreviewProvider {
     static var previews: some View {

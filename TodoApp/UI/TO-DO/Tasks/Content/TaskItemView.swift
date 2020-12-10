@@ -31,6 +31,8 @@ struct TaskItemView: View {
     }
 }
 
+// MARK: - Previews
+
 struct TaskItemView_Previews: PreviewProvider {
     static var previews: some View {
         Group {

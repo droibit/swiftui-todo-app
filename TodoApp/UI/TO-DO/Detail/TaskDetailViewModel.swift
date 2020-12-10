@@ -18,7 +18,7 @@ class TaskDetailViewModel: ObservableObject {
 
     private var universalBag: UniversalDisposeBag!
 
-    @Published private(set) var task: Task
+    @Published private(set) var uiState: TaskDetailUiState
 
     @Published private(set) var deleteTaskResult: DeleteTaskResult
 
@@ -32,7 +32,7 @@ class TaskDetailViewModel: ObservableObject {
     {
         self.tasksRepository = tasksRepository
         self.schedulers = schedulers
-        self.task = task
+        uiState = TaskDetailUiState(task: task)
         self.deleteTaskResult = deleteTaskResult
         self.toggleTaskCompletedResult = toggleTaskCompletedResult
     }
@@ -48,11 +48,13 @@ class TaskDetailViewModel: ObservableObject {
 
     private func subscribeTask() {
         tasksRepository.tasks
-            .compactMap { [unowned self] tasks in tasks.first(where: { $0.id == self.task.id }) }
-            .filter { [unowned self] task in self.task != task }
+            .compactMap { [unowned self] tasks in
+                tasks.first(where: { $0.id == self.uiState.task.id })
+            }
+            .filter { [unowned self] task in self.uiState.task != task }
             .observeOn(schedulers.main)
             .subscribe(onNext: { [unowned self] task in
-                self.task = task
+                self.uiState = TaskDetailUiState(task: task)
             }, onError: { error in
                 // TODO: Improve error handling.
                 let actualError = error as! TasksError
@@ -66,7 +68,7 @@ class TaskDetailViewModel: ObservableObject {
         }
         toggleTaskCompletedResult = .inProgress
 
-        tasksRepository.getTask(taskId: task.id)
+        tasksRepository.getTask(taskId: uiState.task.id)
             .flatMapCompletable { task in
                 if task.isCompleted {
                     return self.tasksRepository.activateTask(taskId: task.id)
@@ -89,7 +91,7 @@ class TaskDetailViewModel: ObservableObject {
         }
         deleteTaskResult = .inProgress
 
-        tasksRepository.deleteTask(taskId: task.id)
+        tasksRepository.deleteTask(taskId: uiState.task.id)
             .observeOn(schedulers.main)
             .subscribe(onCompleted: { [unowned self] in
                 self.deleteTaskResult = .success
