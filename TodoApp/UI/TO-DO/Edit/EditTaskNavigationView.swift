@@ -38,7 +38,7 @@ struct EditTaskNavigationView<Content>: View where Content: View {
             content
                 .navigationBarTitle(Text(title), displayMode: .inline)
                 .navigationBarItems(
-                    trailing: Button(L10n.EditTask.done, action: doneAction.handler)
+                    trailing: Button(L10n.Common.done, action: doneAction.handler)
                         .disabled(!doneAction.isEnabled)
                 )
         }

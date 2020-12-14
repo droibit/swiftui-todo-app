@@ -21,7 +21,6 @@
 "tasks.sort_by.created_date"="作成日";
 
 "detail_task.title" = "詳細";
-"detail_task.edit" = "編集";
 "detail_task.created_at_label" = "作成日 %@";
 
 "new_task.title"="新しいTO-DO";
@@ -34,7 +33,6 @@
 "edit_task.description.label"="説明";
 "edit_task.description.hint"="TO-DOの説明を入力してください";
 "edit_task.validation.empty_title"="TO-DOのタイトルを入力してください。";
-"edit_task.done" = "完了";
 
 "statistics.title"="統計";
 "statistics.active_tasks"="アクティブなTO-DO";
@@ -47,3 +45,5 @@
 "settings.app.build_version.subtitle"="バージョン=%@";
 
 "common.loading" = "読み込み中...";
+"common.edit" = "編集";
+"common.done" = "完了";

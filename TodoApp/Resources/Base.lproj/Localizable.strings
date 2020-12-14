@@ -21,7 +21,6 @@
 "tasks.sort_by.created_date"="Created Date";
 
 "detail_task.title" = "Detail";
-"detail_task.edit" = "Edit";
 "detail_task.created_at_label" = "Created at %@";
 
 "new_task.title"="New TO-DO";
@@ -34,7 +33,6 @@
 "edit_task.description.label"="Description";
 "edit_task.description.hint"="Enter your TO-DO here.";
 "edit_task.validation.empty_title"="Fill TO-DO's title";
-"edit_task.done" = "Done";
 
 "statistics.title"="Statistics";
 "statistics.active_tasks"="Active TO-DOs";
@@ -47,3 +45,5 @@
 "settings.app.build_version.subtitle"="Version=%@";
 
 "common.loading" = "Loading...";
+"common.edit" = "Edit";
+"common.done" = "Done";

@@ -90,7 +90,7 @@ private extension TaskDetailView {
         var body: some View {
             content
                 .navigationBarTitle(Text(L10n.DetailTask.title), displayMode: .inline)
-                .navigationBarItems(trailing: Button(L10n.DetailTask.edit, action: onEdit))
+                .navigationBarItems(trailing: Button(L10n.Common.edit, action: onEdit))
         }
     }
 }
