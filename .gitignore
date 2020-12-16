@@ -88,3 +88,6 @@ iOSInjectionProject/
 
 # needle
 NeedleGenerated.swift
+
+# LicensePlist
+com.mono0926.LicensePlist.Output/
