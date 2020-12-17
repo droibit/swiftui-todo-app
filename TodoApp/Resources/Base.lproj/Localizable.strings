@@ -40,9 +40,9 @@
 
 "settings.title"="Settings";
 "settings.app.title"="App";
-"settings.app.source_code.title"="Source code";
-"settings.app.build_version.title"="Build version";
-"settings.app.build_version.subtitle"="Version=%@";
+"settings.app.source_code"="Source code on GitHub";
+"settings.app.open_source_licenses" = "Open source licenses";
+"settings.app.build_version"="Version";
 
 "common.loading" = "Loading...";
 "common.edit" = "Edit";

@@ -34,3 +34,11 @@ extension AppComponent {
         StatisticsComponent(parent: self)
     }
 }
+
+// MARK: - Settings
+
+extension AppComponent {
+    var settings: SettingsComponent {
+        SettingsComponent(parent: self)
+    }
+}

@@ -5,8 +5,8 @@
 //  Created by Shinya Kumagai on 2020/12/09.
 //
 
+import Combine
 import Core
-import Foundation
 import NeedleFoundation
 
 protocol StatisticsDependency: Dependency {

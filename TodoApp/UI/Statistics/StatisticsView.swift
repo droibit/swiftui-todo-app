@@ -60,7 +60,9 @@ private extension StatisticsView {
                     }, label: {
                         Image(systemName: "gear")
                     }))
-                    .sheet(isPresented: $presentsSettings) {}
+                    .sheet(isPresented: $presentsSettings) {
+                        SettingsView.Builder()
+                    }
             }
         }
     }

@@ -40,9 +40,9 @@
 
 "settings.title"="設定";
 "settings.app.title"="アプリ";
-"settings.app.source_code.title"="ソースコード ";
-"settings.app.build_version.title"="ビルドバージョン";
-"settings.app.build_version.subtitle"="バージョン=%@";
+"settings.app.source_code"="ソースコード(GitHub)";
+"settings.app.open_source_licenses" = "オープンソースライセンス";
+"settings.app.build_version"="バージョン";
 
 "common.loading" = "読み込み中...";
 "common.edit" = "編集";
