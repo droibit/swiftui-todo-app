@@ -24,6 +24,7 @@ struct UpdateTaskView: View {
             )
             .onReceive(viewModel.$updateTaskResult, perform: self.didReceiveResult)
         }
+        .accentColor(Color(Asset.Colors.accentColor.color))
     }
 
     private var doneAction: DoneEditTaskAction {

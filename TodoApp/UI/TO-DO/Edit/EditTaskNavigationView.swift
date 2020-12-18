@@ -49,14 +49,26 @@ struct EditTaskNavigationView<Content>: View where Content: View {
 
 struct EditTaskNavigationView_Previews: PreviewProvider {
     static var previews: some View {
-        EditTaskNavigationView(
-            title: L10n.UpdateTask.title,
-            doneAction: .init(isEnabled: true, handler: {})
-        ) {
-            EditTaskView(
-                title: .constant("Update Task"),
-                description: .constant("")
-            )
+        Group {
+            EditTaskNavigationView(
+                title: L10n.UpdateTask.title,
+                doneAction: .init(isEnabled: true, handler: {})
+            ) {
+                EditTaskView(
+                    title: .constant("Update Task"),
+                    description: .constant("")
+                )
+            }.environment(\.colorScheme, .light)
+
+            EditTaskNavigationView(
+                title: L10n.UpdateTask.title,
+                doneAction: .init(isEnabled: true, handler: {})
+            ) {
+                EditTaskView(
+                    title: .constant("Update Task"),
+                    description: .constant("...")
+                )
+            }.environment(\.colorScheme, .dark)
         }
     }
 }

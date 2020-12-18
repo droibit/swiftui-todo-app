@@ -23,6 +23,7 @@ struct NewTaskView: View {
             )
             .onReceive(viewModel.$makeTaskResult, perform: self.didReceiveResult)
         }
+        .accentColor(Color(Asset.Colors.accentColor.color))
     }
 
     private var doneAction: DoneEditTaskAction {

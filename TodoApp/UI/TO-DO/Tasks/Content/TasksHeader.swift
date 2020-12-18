@@ -37,7 +37,7 @@ struct TasksHeader: View {
             }, label: {
                 Label(sorting.label, systemImage: "line.horizontal.3.decrease.circle.fill")
                     .font(.subheadline)
-                    .foregroundColor(.primary)
+                    .foregroundColor(.secondary)
             }).actionSheet(isPresented: $presentsSotingActionSheet) {
                 ActionSheet(title: Text(L10n.Tasks.SortBy.label), buttons: sortingActionButtons())
             }
@@ -46,14 +46,14 @@ struct TasksHeader: View {
             }, label: {
                 sorting.order.icon
                     .renderingMode(.template)
-                    .foregroundColor(.primary)
+                    .foregroundColor(.secondary)
                     .font(Font.subheadline.weight(.semibold))
                     .padding(.all, 4)
             })
         }
         .padding(.vertical, 8)
         .padding(.horizontal, 16)
-        .background(Color.gray)
+        .background(Color(UIColor.systemBackground))
     }
 
     private func filterActionButtons() -> [ActionSheet.Button] {

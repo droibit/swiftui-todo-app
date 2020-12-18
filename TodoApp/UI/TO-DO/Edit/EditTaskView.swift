@@ -63,7 +63,7 @@ struct EditTaskView_Previews: PreviewProvider {
     static var previews: some View {
         EditTaskView(
             title: .constant("Buy something"),
-            description: .constant("")
+            description: .constant("...")
         )
     }
 }

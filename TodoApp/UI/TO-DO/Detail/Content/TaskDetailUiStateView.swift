@@ -47,6 +47,7 @@ struct TaskDetailUiStateView: View {
                 if !uiState.task.description.isEmpty {
                     Text(uiState.task.description)
                         .font(.subheadline)
+                        .foregroundColor(.secondary)
                 }
 
                 HStack {
@@ -59,9 +60,11 @@ struct TaskDetailUiStateView: View {
                 }
 
                 HStack {
-                    Button("Delete", action: onDelete)
-                        .font(.body)
-                        .padding()
+                    Button(action: onDelete, label: {
+                        Image(systemName: "trash")
+                            .font(.body)
+                            .padding()
+                    })
                 }.frame(maxWidth: .infinity)
             }
             .frame(maxWidth: .infinity)

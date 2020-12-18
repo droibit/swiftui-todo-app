@@ -25,6 +25,7 @@ struct TaskItemView: View {
                     Text(task.description)
                         .lineLimit(1)
                         .font(.subheadline)
+                        .foregroundColor(.secondary)
                 }
             }
         }
@@ -57,6 +58,7 @@ struct TaskItemView_Previews: PreviewProvider {
                     createdAt: Date()
                 )
             )
+            .background(Color(UIColor.systemBackground))
             .previewLayout(.sizeThatFits)
             .environment(\.colorScheme, .dark)
         }
